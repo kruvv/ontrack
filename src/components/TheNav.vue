@@ -1,8 +1,8 @@
 <template>
   <nav class="sticky bottom-0 z-10 bg-white">
     <ul class="flex items-center justify-arround border-t">
-      <NavItem v-for="(icon, page) in navItems" :key="page" :href="`#${page}`"
-        :class="{ 'bg-gray-200 pointer-events-none': page === currentPage }" @click="currentPage = page">
+      <NavItem v-for="(icon, page) in NAV_ITEMS" :key="page" :href="`#${page}`"
+        :class="{ 'bg-gray-200 pointer-events-none': page === currentPage }" @click="emit('navigate', page)">
         <component :is="icon" class="h-6 w-6" /> {{ page }}
       </NavItem>
     </ul>
@@ -10,25 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from '../constants'
-import { ClockIcon, ListBulletIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
 import NavItem from './NavItem.vue'
+import { NAV_ITEMS } from '@/constants'
 
-const navItems = {
-  [PAGE_TIMELINE]: ClockIcon,
-  [PAGE_ACTIVITIES]: ListBulletIcon,
-  [PAGE_PROGRESS]: ChartBarIcon,
-}
-const currentPage = ref(normalizePageHash())
+defineProps(['currentPage'])
 
-// Проверяем хеш в адресе страницы, если нужно нормализуем его к виду host/ontrack/#timeline
-function normalizePageHash() {
-  const hash = window.location.hash.slice(1)
-  if (Object.keys(navItems).includes(hash)) return hash
-  window.location.hash = PAGE_TIMELINE
-  return PAGE_TIMELINE
-}
+const emit = defineEmits(['navigate'])
 </script>
 
 <style scoped></style>
