@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
-import { PAGE_PROGRESS } from '@/constants'
+import { PAGE_PROGRESS } from '@/constants.ts'
 </script>
 
 <style scoped></style>
