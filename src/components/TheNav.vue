@@ -17,11 +17,13 @@
 <script setup lang="ts">
 import NavItem from './NavItem.vue'
 import { NAV_ITEMS } from '@/constants.ts'
+import { isPageValid } from '@/validators.ts'
 
 defineProps({
   currentPage: {
     type: String,
     required: true,
+    validator: isPageValid,
   },
 })
 
