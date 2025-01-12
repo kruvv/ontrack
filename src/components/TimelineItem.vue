@@ -7,7 +7,12 @@
 
 <script setup lang="ts">
 import BaseSelect from '@/components/BaseSelect.vue'
-const props = defineProps(['timelineItem'])
+const props = defineProps({
+  timelineItem: {
+    type: Object,
+    required: true,
+  },
+})
 
 const hourLinkClasses = [
   'absolute -top-4 left-1/2 -translate-x-1/2 rounded  px-2 font-mono text-lg',
