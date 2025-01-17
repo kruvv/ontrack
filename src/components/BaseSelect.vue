@@ -5,7 +5,7 @@
     </BaseButton>
     <select
       class="w-full truncate rounded bg-gray-100 py-1 px-2 text-2xl"
-      @change="emit('select', +$event.target.value)"
+      @change="emit('select', +$event.target?.value)"
     >
       <option :selected="isNotSelected" disabled value="">
         {{ placeholder }}

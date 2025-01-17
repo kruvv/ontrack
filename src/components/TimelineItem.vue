@@ -29,7 +29,12 @@ const hourLinkClasses = [
     : 'bg-gray-100 text-gray-500',
 ]
 
-const options = [
+type TypeOptions = {
+  value: number
+  label: string
+}
+
+const options: TypeOptions[] = [
   { value: 1, label: 'Coding' },
   { value: 2, label: 'Reading' },
   { value: 3, label: 'Training' },
