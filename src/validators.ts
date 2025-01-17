@@ -33,7 +33,7 @@ export function isUndefinedOrNull(value?: number) {
   return isUndefined(value) || isNull(value)
 }
 
-export function isNumberOrNull(value?: number | null) {
+export function isNumberOrNull(value: number | null) {
   if (typeof value === 'number') return isNumber(value)
   if (value === null) return isNull(value)
 }
@@ -60,4 +60,16 @@ function isBetween(value: number, start: number, end: number) {
 
 export function isHourValid(hour: number) {
   return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY)
+}
+
+export function isActivityValid(value: string) {
+  return isNotEmptyString(value)
+}
+
+function isNotEmptyString(value: string) {
+  return isString(value) && value.length > 0
+}
+
+export function validateActivities(activities: string[]) {
+  return activities.every(isActivityValid)
 }
