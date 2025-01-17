@@ -58,6 +58,6 @@ function isBetween(value: number, start: number, end: number) {
   return value >= start && value <= end
 }
 
-function isHourValid(hour: number) {
+export function isHourValid(hour: number) {
   return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY)
 }
