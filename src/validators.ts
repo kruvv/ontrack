@@ -1,4 +1,4 @@
-import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR } from '@/constants.ts'
+import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES } from '@/constants.ts'
 
 type SelectOptions = {
   value: number
@@ -11,6 +11,10 @@ export type TimelineItem = {
 
 export function isPageValid(page: string): boolean {
   return Object.keys(NAV_ITEMS).includes(page)
+}
+
+export function isButtonTypeValid(type: string) {
+  return BUTTON_TYPES.includes(type)
 }
 
 export function isTimelineItemValid({ hour }: TimelineItem) {
