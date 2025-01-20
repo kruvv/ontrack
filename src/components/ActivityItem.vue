@@ -34,7 +34,7 @@ defineProps({
   },
 })
 
-const secondsToComplete = ref(null)
+const secondsToComplete = ref<number>(null)
 </script>
 
 <style scoped></style>

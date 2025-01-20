@@ -3,7 +3,7 @@
     <ul>
       <TimelineItem
         v-for="timelineitem in timelineItems"
-        :key="timelineitem?.hour"
+        :key="timelineitem.hour"
         :timeline-item="timelineitem"
       />
     </ul>

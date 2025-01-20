@@ -10,7 +10,7 @@ import { normalizePageHash, generateTimeLineItems } from '@/functions.ts'
 
 const currentPage = ref(normalizePageHash())
 const timelineItems = generateTimeLineItems()
-const activities = ['Coding', 'Riding', 'Training']
+const activities: string[] = ['Coding', 'Riding', 'Training']
 
 function goTo(page: string) {
   currentPage.value = page

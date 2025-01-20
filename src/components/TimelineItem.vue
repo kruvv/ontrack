@@ -1,6 +1,6 @@
 <template>
   <li class="relative flex flex-col gap-2 border-t border-grey-200 py-10 px-4">
-    <TimelineHour :hour="timelineItem?.hour" />
+    <TimelineHour :hour="timelineItem.hour" />
     <BaseSelect
       :selected="selectedActivityId"
       :options="options"
