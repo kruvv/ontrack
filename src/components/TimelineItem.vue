@@ -3,7 +3,7 @@
     <TimelineHour :hour="timelineItem.hour" />
     <BaseSelect
       :selected="selectedActivityId"
-      :options="options"
+      :options="activitySelectOptions"
       placeholder="Rest"
       @select="selectedActivityId = $event"
     />
@@ -14,7 +14,7 @@
 import { ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import TimelineHour from '@/components/TimelineHour.vue'
-import { isTimelineItemValid } from '@/validators.ts'
+import { isTimelineItemValid, validateSelectOptions } from '@/validators.ts'
 
 defineProps({
   timelineItem: {
@@ -22,19 +22,14 @@ defineProps({
     required: true,
     validator: isTimelineItemValid,
   },
+  activitySelectOptions: {
+    type: Array,
+    required: true,
+    validator: validateSelectOptions,
+  },
 })
 
-type TypeOptions = {
-  value: number
-  label: string
-}
-
-const options: TypeOptions[] = [
-  { value: 1, label: 'Coding' },
-  { value: 2, label: 'Reading' },
-  { value: 3, label: 'Training' },
-]
-const selectedActivityId = ref()
+const selectedActivityId = ref(0)
 </script>
 
 <style scoped></style>

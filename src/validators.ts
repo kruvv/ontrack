@@ -1,6 +1,6 @@
 import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES } from '@/constants.ts'
 
-type SelectOptions = {
+export type SelectOptions = {
   value: number
   label: string
 }
@@ -30,7 +30,7 @@ export function validateSelectOptions(options: SelectOptions[]) {
 }
 
 function isSelectOptionValid({ value, label }: SelectOptions) {
-  return isNumber(value) && isString(label)
+  return isNumber(value) && isNotEmptyString(label)
 }
 
 export function validateTimelineItems(timelineItems: TimelineItem[]) {

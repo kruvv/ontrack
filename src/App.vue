@@ -6,11 +6,17 @@ import TheActivities from '@/pages/TheActivities.vue'
 import TheProgress from '@/pages/TheProgress.vue'
 import { ref } from 'vue'
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants.ts'
-import { normalizePageHash, generateTimeLineItems } from '@/functions.ts'
+import {
+  normalizePageHash,
+  generateTimeLineItems,
+  generateActivitySelectOptions,
+} from '@/functions.ts'
+import type { TimelineItem, SelectOptions } from '@/validators.ts'
 
 const currentPage = ref(normalizePageHash())
-const timelineItems = generateTimeLineItems()
+const timelineItems: TimelineItem[] = generateTimeLineItems()
 const activities: string[] = ['Coding', 'Riding', 'Training']
+const activitySelectOptions: SelectOptions[] = generateActivitySelectOptions(activities)
 
 function goTo(page: string) {
   currentPage.value = page
@@ -20,7 +26,11 @@ function goTo(page: string) {
 <template>
   <TheHeader @navigate="goTo($event)" />
   <main class="flex flex-grow flex-col">
-    <TheTimeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems" />
+    <TheTimeline
+      v-show="currentPage === PAGE_TIMELINE"
+      :timeline-items="timelineItems"
+      :activity-select-options="activitySelectOptions"
+    />
     <TheActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
