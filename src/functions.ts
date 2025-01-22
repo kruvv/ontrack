@@ -21,6 +21,6 @@ export function generateTimeLineItems() {
 }
 
 // Генерация активностей
-export function generateActivitySelectOptions(activities: SelectOptions[]) {
+export function generateActivitySelectOptions(activities: string[]) {
   return activities.map((label, value) => ({ label, value }))
 }

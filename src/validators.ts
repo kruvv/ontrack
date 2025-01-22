@@ -50,7 +50,7 @@ function isNull(value: number | null) {
   return value === null
 }
 
-function isUndefined(value: number | undefined) {
+export function isUndefined(value: number | undefined) {
   return value === undefined
 }
 
