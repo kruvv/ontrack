@@ -1,6 +1,6 @@
 import { PAGE_TIMELINE, HOURS_IN_DAY, MIDNIGHT_HOUR } from '@/constants.ts'
 import { isPageValid } from '@/validators.ts'
-import type { TimelineItem, SelectOptions } from '@/validators.ts'
+import type { TimelineItem } from '@/validators.ts'
 
 // Проверяем хеш в адресе страницы, если нужно нормализуем его к виду host/ontrack/#timeline
 export function normalizePageHash() {

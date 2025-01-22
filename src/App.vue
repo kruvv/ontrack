@@ -15,7 +15,7 @@ import type { TimelineItem, SelectOptions } from '@/validators.ts'
 
 const currentPage = ref(normalizePageHash())
 const timelineItems: TimelineItem[] = generateTimeLineItems()
-const activities: string[] = ref(['Coding', 'Riding', 'Training'])
+const activities = ref<string[]>(['Coding', 'Riding', 'Training'])
 const activitySelectOptions: SelectOptions[] = generateActivitySelectOptions(activities.value)
 
 function goTo(page: string) {
