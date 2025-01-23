@@ -5,10 +5,11 @@
 </template>
 
 <script lang="ts">
-import { BUTTON_TYPE_DANGER, BUTTON_TYPE_NAUTRAL } from '@/constants.ts'
+import { BUTTON_TYPE_PRIMARY, BUTTON_TYPE_DANGER, BUTTON_TYPE_NEUTRAL } from '@/constants.ts'
 
 const typeClasses = {
-  [BUTTON_TYPE_NAUTRAL]: 'bg-gray-100 p-3 enabled:hover:bg-gray-200',
+  [BUTTON_TYPE_PRIMARY]: 'bg-purple-500 p-3 enabled:hover:bg-purple-600',
+  [BUTTON_TYPE_NEUTRAL]: 'bg-gray-100 p-3 enabled:hover:bg-gray-200',
   [BUTTON_TYPE_DANGER]: 'bg-red-500 p-3 enabled:hover:bg-red-600 text-white',
 }
 </script>
@@ -19,7 +20,7 @@ import { isButtonTypeValid } from '@/validators.ts'
 defineProps({
   type: {
     type: String,
-    default: BUTTON_TYPE_NAUTRAL,
+    default: BUTTON_TYPE_PRIMARY,
     validator: isButtonTypeValid,
   },
 })

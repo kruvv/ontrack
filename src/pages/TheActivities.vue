@@ -8,11 +8,13 @@
         @delete="emit('deleteActivity', activity)"
       />
     </ul>
+    <TheActivityForm @submit="emit('createActivity', $event)" />
   </div>
 </template>
 
 <script setup lang="ts">
 import ActivityItem from '@/components/ActivityItem.vue'
+import TheActivityForm from '@/components/TheActivityForm.vue'
 import { validateActivities, isActivityValid } from '@/validators.ts'
 
 defineProps({
