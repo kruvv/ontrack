@@ -26,6 +26,7 @@ defineProps({
 })
 const emit = defineEmits({
   deleteActivity: isActivityValid,
+  createActivity: isActivityValid,
 })
 </script>
 
