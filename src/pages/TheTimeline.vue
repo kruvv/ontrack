@@ -14,10 +14,12 @@
 <script setup lang="ts">
 import TimelineItem from '@/components/TimelineItem.vue'
 import { validateTimelineItems, validateSelectOptions } from '@/validators.ts'
+import type { TimelineItemType } from '@/validators.ts'
+import type { PropType } from 'vue'
 
 defineProps({
   timelineItems: {
-    type: Array,
+    type: Array as PropType<TimelineItemType[]>,
     required: true,
     validator: validateTimelineItems,
   },

@@ -1,11 +1,11 @@
 import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES } from '@/constants.ts'
 
-export type SelectOptions = {
+export type SelectOptionsType = {
   value: number
   label: string
 }
 
-export type TimelineItem = {
+export type TimelineItemType = {
   hour: number
 }
 
@@ -17,7 +17,7 @@ export function isButtonTypeValid(type: string) {
   return BUTTON_TYPES.includes(type)
 }
 
-export function isTimelineItemValid({ hour }: TimelineItem) {
+export function isTimelineItemValid({ hour }: TimelineItemType) {
   return isHourValid(hour)
 }
 
@@ -25,15 +25,15 @@ export function isHourValid(hour: number) {
   return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY)
 }
 
-export function validateSelectOptions(options: SelectOptions[]) {
+export function validateSelectOptions(options: SelectOptionsType[]) {
   return options.every(isSelectOptionValid)
 }
 
-function isSelectOptionValid({ value, label }: SelectOptions) {
+function isSelectOptionValid({ value, label }: SelectOptionsType) {
   return isNumber(value) && isNotEmptyString(label)
 }
 
-export function validateTimelineItems(timelineItems: TimelineItem[]) {
+export function validateTimelineItems(timelineItems: TimelineItemType[]) {
   return timelineItems.every(isTimelineItemValid)
 }
 
@@ -46,7 +46,7 @@ export function isNumberOrNull(value: number | null) {
   if (value === null) return isNull(value)
 }
 
-function isNull(value: number | null) {
+export function isNull(value: number | null) {
   return value === null
 }
 

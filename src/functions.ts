@@ -1,6 +1,6 @@
 import { PAGE_TIMELINE, HOURS_IN_DAY, MIDNIGHT_HOUR } from '@/constants.ts'
 import { isPageValid } from '@/validators.ts'
-import type { TimelineItem } from '@/validators.ts'
+import type { TimelineItemType } from '@/validators.ts'
 
 // Проверяем хеш в адресе страницы, если нужно нормализуем его к виду host/ontrack/#timeline
 export function normalizePageHash() {
@@ -12,7 +12,7 @@ export function normalizePageHash() {
 
 // Герерация часов каждый день
 export function generateTimeLineItems() {
-  const timeItems: TimelineItem[] = []
+  const timeItems: TimelineItemType[] = []
 
   for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
     timeItems.push({ hour })

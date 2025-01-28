@@ -13,7 +13,7 @@ const props = defineProps({
   },
 })
 
-const formattedHour = `${props.hour.toString().padStart(2, 0)}:00`
+const formattedHour = `${props.hour.toString().padStart(2, '0')}:00`
 
 const classes = [
   'absolute -top-4 left-1/2 -translate-x-1/2 rounded  px-2 font-mono text-lg',

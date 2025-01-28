@@ -5,7 +5,7 @@
     </BaseButton>
     <select
       class="w-full truncate rounded bg-gray-100 py-1 px-2 text-2xl"
-      @change="emit('select', ($event.target as HTMLInputElement).value)"
+      @change="emit('select', +($event.target as HTMLInputElement).value)"
     >
       <option :selected="isNotSelected" disabled value="">
         {{ placeholder }}
@@ -24,19 +24,24 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { PropType } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { validateSelectOptions, isUndefinedOrNull, isNumberOrNull } from '@/validators.ts'
+import type { SelectOptionsType } from '@/validators.ts'
+
 import { BUTTON_TYPE_NEUTRAL } from '@/constants.ts'
 
 const emit = defineEmits({
   select: isNumberOrNull,
 })
-
+// type SelectType = {
+//   selected: number | null
+// }
 const props = defineProps({
-  selected: Number,
+  selected: Number /* as PropType<SelectType>*/,
   options: {
-    type: Array,
+    type: Array as PropType<SelectOptionsType[]>,
     required: true,
     validator: validateSelectOptions,
   },

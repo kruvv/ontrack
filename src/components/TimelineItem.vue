@@ -29,7 +29,7 @@ defineProps({
   },
 })
 
-const selectedActivityId = ref(0)
+const selectedActivityId = ref<number | null>(null)
 </script>
 
 <style scoped></style>
