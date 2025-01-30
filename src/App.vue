@@ -10,12 +10,13 @@ import {
   normalizePageHash,
   generateTimeLineItems,
   generateActivitySelectOptions,
+  generateActivities,
 } from '@/functions.ts'
-import type { TimelineItemType, SelectOptionsType } from '@/validators.ts'
+import type { TimelineItemType, SelectOptionsType, ActivityType } from '@/validators.ts'
 
 const currentPage = ref(normalizePageHash())
 const timelineItems: TimelineItemType[] = generateTimeLineItems()
-const activities = ref<string[]>(['Coding', 'Riding', 'Training'])
+const activities = ref<ActivityType[]>(generateActivities())
 const activitySelectOptions: SelectOptionsType[] = generateActivitySelectOptions(activities.value)
 
 function goTo(page: string) {
@@ -26,7 +27,7 @@ function deleteActivity(activity: string) {
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
 
-function createActivity(activity: string) {
+function createActivity(activity: ActivityType) {
   activities.value.push(activity)
 }
 </script>
@@ -34,17 +35,10 @@ function createActivity(activity: string) {
 <template>
   <TheHeader @navigate="goTo($event)" />
   <main class="flex flex-grow flex-col">
-    <TheTimeline
-      v-show="currentPage === PAGE_TIMELINE"
-      :timeline-items="timelineItems"
-      :activity-select-options="activitySelectOptions"
-    />
-    <TheActivities
-      v-show="currentPage === PAGE_ACTIVITIES"
-      :activities="activities"
-      @delete-activity="deleteActivity"
-      @create-activity="createActivity"
-    />
+    <TheTimeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems"
+      :activity-select-options="activitySelectOptions" />
+    <TheActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" @delete-activity="deleteActivity"
+      @create-activity="createActivity" />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <TheNav :current-page="currentPage" @navigate="goTo($event)" />

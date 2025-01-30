@@ -9,6 +9,12 @@ export type TimelineItemType = {
   hour: number
 }
 
+export type ActivityType = {
+  id: string
+  name: string
+  secondsToComplete: number
+}
+
 export function isPageValid(page: string): boolean {
   return Object.keys(NAV_ITEMS).includes(page)
 }
@@ -30,7 +36,7 @@ export function validateSelectOptions(options: SelectOptionsType[]) {
 }
 
 function isSelectOptionValid({ value, label }: SelectOptionsType) {
-  return isNumber(value) && isNotEmptyString(label)
+  return (isNumber(value) || isNotEmptyString(value)) && isNotEmptyString(label)
 }
 
 export function validateTimelineItems(timelineItems: TimelineItemType[]) {
@@ -66,14 +72,14 @@ function isBetween(value: number, start: number, end: number) {
   return value >= start && value <= end
 }
 
-export function isActivityValid(value: string) {
-  return isNotEmptyString(value)
+export function isActivityValid({ id, name, secondsToComplete }: ActivityType) {
+  return [isNotEmptyString(id), isNotEmptyString(name), isNumber(secondsToComplete)].every(Boolean)
 }
 
 function isNotEmptyString(value: string) {
   return isString(value) && value.length > 0
 }
 
-export function validateActivities(activities: string[]) {
+export function validateActivities(activities: ActivityType[]) {
   return activities.every(isActivityValid)
 }
