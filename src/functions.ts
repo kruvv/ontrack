@@ -1,5 +1,5 @@
 import { PAGE_TIMELINE, HOURS_IN_DAY, MIDNIGHT_HOUR, SECONDS_IN_HOUR } from '@/constants.ts'
-import { isPageValid } from '@/validators.ts'
+import { isPageValid, isNull } from '@/validators.ts'
 import type { TimelineItemType, ActivityType } from '@/validators.ts'
 
 // Проверяем хеш в адресе страницы, если нужно нормализуем его к виду host/ontrack/#timeline
@@ -10,6 +10,9 @@ export function normalizePageHash() {
   return PAGE_TIMELINE
 }
 
+export function normalizeSelectValue(value: number | string) {
+  return isNull(value) || isNaN(value) ? value : +value
+}
 export function generateActivities() {
   return ['Coding', 'Training', 'Reading'].map((name, hours) => ({
     id: id(),
@@ -28,7 +31,7 @@ export function generateTimeLineItems() {
   const timeItems: TimelineItemType[] = []
 
   for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
-    timeItems.push({ hour })
+    timeItems.push({ hour, activityId: null })
   }
   return timeItems
 }

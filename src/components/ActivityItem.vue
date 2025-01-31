@@ -7,13 +7,8 @@
       <span class="truncate text-xl">{{ activity.name }}</span>
     </div>
     <div>
-      <BaseSelect
-        class="font-mono"
-        :selected="secondsToComplete"
-        placeholder="h:mm"
-        :options="PERIOD_SELECT_OPTIONS"
-        @select="secondsToComplete = $event"
-      />
+      <BaseSelect class="font-mono" :selected="secondsToComplete" placeholder="h:mm" :options="PERIOD_SELECT_OPTIONS"
+        @select="secondsToComplete = $event" />
     </div>
   </li>
 </template>
@@ -40,7 +35,7 @@ const emit = defineEmits({
   delete: isNull, //isUndefined,
 })
 
-const secondsToComplete = ref<number | null>(null)
+const secondsToComplete = ref<number | null>(0)
 </script>
 
 <style scoped></style>

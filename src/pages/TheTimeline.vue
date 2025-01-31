@@ -1,19 +1,23 @@
 <template>
   <div class="mt-7">
     <ul>
-      <TimelineItem
-        v-for="timelineitem in timelineItems"
-        :key="timelineitem.hour"
-        :timeline-item="timelineitem"
-        :activity-select-options="activitySelectOptions"
-      />
+      <TimelineItem v-for="timelineItem in timelineItems" :key="timelineItem.hour" :timeline-item="timelineItem"
+        :activity-select-options="activitySelectOptions" :activities="activities"
+        @select-activity="emit('setTimelineItemActivity', { timelineItem, activity: $event })" />
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
 import TimelineItem from '@/components/TimelineItem.vue'
-import { validateTimelineItems, validateSelectOptions } from '@/validators.ts'
+import {
+  validateTimelineItems,
+  validateSelectOptions,
+  validateActivities,
+  isTimelineItemValid,
+  isActivityValid,
+  isNull,
+} from '@/validators.ts'
 import type { TimelineItemType } from '@/validators.ts'
 import type { PropType } from 'vue'
 
@@ -27,6 +31,18 @@ defineProps({
     type: Array,
     required: true,
     validator: validateSelectOptions,
+  },
+  activities: {
+    type: Array,
+    requered: true,
+    validator: validateActivities,
+  },
+})
+const emit = defineEmits({
+  setTimelineItemActivity({ timelineItem, activity }) {
+    return [isTimelineItemValid(timelineItem), isNull(activity) || isActivityValid(activity)].every(
+      Boolean,
+    )
   },
 })
 </script>

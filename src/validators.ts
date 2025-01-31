@@ -7,6 +7,7 @@ export type SelectOptionsType = {
 
 export type TimelineItemType = {
   hour: number
+  activityId: string | null
 }
 
 export type ActivityType = {
@@ -82,4 +83,8 @@ function isNotEmptyString(value: string) {
 
 export function validateActivities(activities: ActivityType[]) {
   return activities.every(isActivityValid)
+}
+
+export function isSelectValueValid(value) {
+  return isNotEmptyString(value) || isNumberOrNull(value)
 }
