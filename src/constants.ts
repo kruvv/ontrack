@@ -1,5 +1,6 @@
 import { ClockIcon, ListBulletIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
 
+export const NULLABLE_ACTIVITY = { id: null }
 export const PAGE_TIMELINE = 'timeline'
 export const PAGE_ACTIVITIES = 'activities'
 export const PAGE_PROGRESS = 'progress'
@@ -20,7 +21,7 @@ export const NAV_ITEMS = {
   [PAGE_PROGRESS]: ChartBarIcon,
 }
 export const PERIOD_SELECT_OPTIONS = [
-  { value: 15 * 60, label: '0:15' },
-  { value: 30 * 60, label: '0:30' },
-  { value: 45 * 60, label: '0:45' },
+  { value: 1 * SECONDS_IN_HOUR, label: '01:00' },
+  { value: 2 * SECONDS_IN_HOUR, label: '02:00' },
+  { value: 3 * SECONDS_IN_HOUR, label: '03:00' },
 ]

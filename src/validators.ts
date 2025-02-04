@@ -1,7 +1,7 @@
 import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES } from '@/constants.ts'
 
 export type SelectOptionsType = {
-  value: number
+  value: number | string
   label: string
 }
 
@@ -61,7 +61,7 @@ export function isUndefined(value: number | undefined) {
   return value === undefined
 }
 
-function isNumber(value: number) {
+export function isNumber(value: number) {
   return typeof value === 'number'
 }
 
@@ -74,6 +74,9 @@ function isBetween(value: number, start: number, end: number) {
 }
 
 export function isActivityValid({ id, name, secondsToComplete }: ActivityType) {
+  if (isNull(id)) {
+    return true
+  }
   return [isNotEmptyString(id), isNotEmptyString(name), isNumber(secondsToComplete)].every(Boolean)
 }
 

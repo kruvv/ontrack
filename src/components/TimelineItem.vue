@@ -1,8 +1,12 @@
 <template>
   <li class="relative flex flex-col gap-2 border-t border-grey-200 py-10 px-4">
     <TimelineHour :hour="timelineItem.hour" />
-    <BaseSelect :selected="timelineItem.activityId" :options="activitySelectOptions" placeholder="Rest"
-      @select="selectActivity" />
+    <BaseSelect
+      :selected="timelineItem.activityId"
+      :options="activitySelectOptions"
+      placeholder="Rest"
+      @select="selectActivity"
+    />
   </li>
 </template>
 
@@ -14,8 +18,8 @@ import {
   validateSelectOptions,
   isActivityValid,
   validateActivities,
-  isNull,
 } from '@/validators.ts'
+import { NULLABLE_ACTIVITY } from '@/constants.ts'
 
 const props = defineProps({
   timelineItem: {
@@ -36,13 +40,15 @@ const props = defineProps({
 })
 
 const emit = defineEmits({
-  selectActivity(activity) {
-    return isNull(activity) || isActivityValid(activity)
-  },
+  selectActivity: isActivityValid,
 })
 
 function selectActivity(id) {
-  emit('selectActivity', props.activities.find((activity) => activity.id === id) || null)
+  emit('selectActivity', findActivityById(id))
+}
+
+function findActivityById(id) {
+  return props.activities.find((activity) => activity.id === id) || NULLABLE_ACTIVITY
 }
 </script>
 
