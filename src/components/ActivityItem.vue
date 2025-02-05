@@ -7,13 +7,8 @@
       <span class="truncate text-xl">{{ activity.name }}</span>
     </div>
     <div>
-      <BaseSelect
-        class="font-mono"
-        :selected="activity.secondsToComplete || null"
-        placeholder="h:mm"
-        :options="PERIOD_SELECT_OPTIONS"
-        @select="emit('setSecondsToComplete', $event || 0)"
-      />
+      <BaseSelect class="font-mono" :selected="activity.secondsToComplete || null" placeholder="hh:mm"
+        :options="PERIOD_SELECT_OPTIONS" @select="emit('setSecondsToComplete', $event || 0)" />
     </div>
   </li>
 </template>

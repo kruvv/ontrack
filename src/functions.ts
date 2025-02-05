@@ -1,4 +1,11 @@
-import { PAGE_TIMELINE, HOURS_IN_DAY, MIDNIGHT_HOUR, SECONDS_IN_HOUR } from '@/constants.ts'
+import {
+  PAGE_TIMELINE,
+  HOURS_IN_DAY,
+  MIDNIGHT_HOUR,
+  SECONDS_IN_HOUR,
+  SECONDS_IN_MINUTES,
+  MINUTES_IN_HOUR,
+} from '@/constants.ts'
 import { isPageValid, isNull } from '@/validators.ts'
 import type { TimelineItemType, ActivityType } from '@/validators.ts'
 
@@ -39,4 +46,19 @@ export function generateTimeLineItems() {
 // Генерация активностей
 export function generateActivitySelectOptions(activities: ActivityType[]) {
   return activities.map((activity) => ({ label: activity.name, value: activity.id }))
+}
+
+function generatePeriodSelectOptionsLabel(periodsInMinutes: number) {
+  const hours = Math.floor(periodsInMinutes / MINUTES_IN_HOUR)
+    .toString()
+    .padStart(2, '0')
+  const minutes = (periodsInMinutes % MINUTES_IN_HOUR).toString().padStart(2, '0')
+  return `${hours}:${minutes}`
+}
+
+export function generatePeriodSelectOptions(periodsInMinutes: number[]) {
+  return periodsInMinutes.map((periodsInMinutes) => ({
+    value: periodsInMinutes * SECONDS_IN_MINUTES,
+    label: generatePeriodSelectOptionsLabel(periodsInMinutes),
+  }))
 }
