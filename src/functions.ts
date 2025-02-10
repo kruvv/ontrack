@@ -5,6 +5,7 @@ import {
   SECONDS_IN_HOUR,
   SECONDS_IN_MINUTES,
   MINUTES_IN_HOUR,
+  MILLISECONDS_IN_SECONDS,
 } from '@/constants.ts'
 import { isPageValid, isNull } from '@/validators.ts'
 import type { TimelineItemType, ActivityType } from '@/validators.ts'
@@ -38,7 +39,7 @@ export function generateTimeLineItems() {
   const timeItems: TimelineItemType[] = []
 
   for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
-    timeItems.push({ hour, activityId: null })
+    timeItems.push({ hour, activityId: null, activitySeconds: 0 })
   }
   return timeItems
 }
@@ -61,4 +62,11 @@ export function generatePeriodSelectOptions(periodsInMinutes: number[]) {
     value: periodsInMinutes * SECONDS_IN_MINUTES,
     label: generatePeriodSelectOptionsLabel(periodsInMinutes),
   }))
+}
+
+export function formatSeconds(seconds: number) {
+  const date = new Date()
+  date.setTime(Math.abs(seconds) * MILLISECONDS_IN_SECONDS)
+  const utc = date.toUTCString()
+  return utc.substring(utc.indexOf(':') - 2, utc.indexOf(':') + 6)
 }

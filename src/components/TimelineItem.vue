@@ -7,11 +7,13 @@
       placeholder="Rest"
       @select="selectActivity"
     />
+    <TimelineStopwatch :seconds="timelineItem.activitySeconds" />
   </li>
 </template>
 
 <script setup lang="ts">
 import BaseSelect from '@/components/BaseSelect.vue'
+import TimelineStopwatch from '@/components/TimelineStopwatch.vue'
 import TimelineHour from '@/components/TimelineHour.vue'
 import {
   isTimelineItemValid,

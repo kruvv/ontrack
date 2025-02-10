@@ -8,6 +8,7 @@ export type SelectOptionsType = {
 export type TimelineItemType = {
   hour: number
   activityId: string | null
+  activitySeconds: number
 }
 
 export type ActivityType = {
