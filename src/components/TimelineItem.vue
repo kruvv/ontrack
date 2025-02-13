@@ -1,13 +1,9 @@
 <template>
   <li class="relative flex flex-col gap-2 border-t border-grey-200 py-10 px-4">
     <TimelineHour :hour="timelineItem.hour" />
-    <BaseSelect
-      :selected="timelineItem.activityId"
-      :options="activitySelectOptions"
-      placeholder="Rest"
-      @select="selectActivity"
-    />
-    <TimelineStopwatch :seconds="timelineItem.activitySeconds" />
+    <BaseSelect :selected="timelineItem.activityId" :options="activitySelectOptions" placeholder="Rest"
+      @select="selectActivity" />
+    <TimelineStopwatch :seconds="timelineItem.activitySeconds" :hour="timelineItem.hour" />
   </li>
 </template>
 
