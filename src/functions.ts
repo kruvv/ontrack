@@ -7,7 +7,7 @@ import {
   MILLISECONDS_IN_SECOND,
 } from '@/constants.ts'
 import { isPageValid, isNull } from '@/validators.ts'
-import type { ActivityType } from '@/validators.ts'
+import type { ActivityType, TimelineItemType } from '@/validators.ts'
 
 // Проверяем хеш в адресе страницы, если нужно нормализуем его к виду host/ontrack/#timeline
 export function normalizePageHash() {
@@ -33,12 +33,24 @@ export function id() {
   return Date.now().toString(36) + Math.random().toString(36).substring(2)
 }
 
+export function getTotalActivitySeconds(activity: ActivityType, timelineItems: TimelineItemType[]) {
+  return timelineItems
+    .filter((timelineItem) => timelineItem.activityId === activity.id)
+    .reduce(
+      (totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds),
+      0,
+    )
+}
+
 // Герерация часов каждый день
 export function generateTimeLineItems(activities: ActivityType[]) {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
     hour,
-    activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
-    activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR,
+    activityId: [1, 2, 3, 4, 5].includes(hour) ? activities[hour % 3].id : null,
+    activitySeconds: [1, 2, 3, 4, 5].includes(hour) ? hour * 600 : 0,
+
+    // activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
+    //    activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR,
   }))
 }
 

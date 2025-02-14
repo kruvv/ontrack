@@ -6,9 +6,11 @@
       </BaseButton>
       <span class="truncate text-xl">{{ activity.name }}</span>
     </div>
-    <div>
-      <BaseSelect class="font-mono" :selected="activity.secondsToComplete || null" placeholder="hh:mm"
+    <div class="flex gap-2">
+      <BaseSelect class="font-mono grow" :selected="activity.secondsToComplete || null" placeholder="hh:mm"
         :options="PERIOD_SELECT_OPTIONS" @select="emit('setSecondsToComplete', $event || 0)" />
+      <ActivitySecondsToComplete v-if="activity.secondsToComplete" :activity="activity"
+        :timeline-items="timelineItems" />
     </div>
   </li>
 </template>
@@ -19,14 +21,20 @@ import { PERIOD_SELECT_OPTIONS, BUTTON_TYPE_DANGER } from '@/constants.ts'
 import { TrashIcon } from '@heroicons/vue/24/outline'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseButton from '@/components/BaseButton.vue'
-import { isActivityValid, isUndefined, /*isNull,*/ isNumber } from '@/validators.ts'
-import type { ActivityType } from '@/validators.ts'
+import ActivitySecondsToComplete from '@/components/ActivitySecondsToComplete.vue'
+import { isActivityValid, isUndefined, validateTimelineItems, isNumber } from '@/validators.ts'
+import type { ActivityType, TimelineItemType } from '@/validators.ts'
 
 defineProps({
   activity: {
     type: Object as PropType<ActivityType>,
     requered: true,
     validator: isActivityValid,
+  },
+  timelineItems: {
+    type: Array as PropType<TimelineItemType[]>,
+    required: true,
+    validator: validateTimelineItems,
   },
 })
 

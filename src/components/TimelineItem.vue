@@ -1,6 +1,6 @@
 <template>
   <li class="relative flex flex-col gap-2 border-t border-grey-200 py-10 px-4">
-    <TimelineHour :hour="timelineItem.hour" />
+    <TimelineHour :hour="timelineItem.hour" @click.prevent="emit('scrollToHour', timelineItem.hour)" />
     <BaseSelect :selected="timelineItem.activityId" :options="activitySelectOptions" placeholder="Rest"
       @select="selectActivity" />
     <TimelineStopwatch :seconds="timelineItem.activitySeconds" :hour="timelineItem.hour" />
@@ -16,6 +16,7 @@ import {
   validateSelectOptions,
   isActivityValid,
   validateActivities,
+  isHourValid,
 } from '@/validators.ts'
 import { NULLABLE_ACTIVITY } from '@/constants.ts'
 
@@ -39,6 +40,7 @@ const props = defineProps({
 
 const emit = defineEmits({
   selectActivity: isActivityValid,
+  scrollToHour: isHourValid,
 })
 
 function selectActivity(id) {

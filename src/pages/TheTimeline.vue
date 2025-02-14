@@ -3,13 +3,13 @@
     <ul>
       <TimelineItem v-for="timelineItem in timelineItems" :key="timelineItem.hour" :timeline-item="timelineItem"
         :activity-select-options="activitySelectOptions" :activities="activities" ref="timelineItemRefs"
-        @select-activity="emit('setTimelineItemActivity', timelineItem, $event)" />
+        @select-activity="emit('setTimelineItemActivity', timelineItem, $event)" @scroll-to-hour="scrollToHour" />
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, watchPostEffect, nextTick } from 'vue'
 import TimelineItem from '@/components/TimelineItem.vue'
 import {
   validateTimelineItems,
@@ -17,12 +17,13 @@ import {
   validateActivities,
   isTimelineItemValid,
   isActivityValid,
+  isPageValid,
 } from '@/validators.ts'
-import { MIDNIGHT_HOUR } from '@/constants.ts'
+import { MIDNIGHT_HOUR, PAGE_TIMELINE } from '@/constants.ts'
 import type { TimelineItemType } from '@/validators.ts'
 import type { PropType } from 'vue'
 
-defineProps({
+const props = defineProps({
   timelineItems: {
     type: Array as PropType<TimelineItemType[]>,
     required: true,
@@ -38,6 +39,11 @@ defineProps({
     requered: true,
     validator: validateActivities,
   },
+  currentPage: {
+    type: String,
+    requered: true,
+    validator: isPageValid,
+  },
 })
 
 const emit = defineEmits({
@@ -46,16 +52,25 @@ const emit = defineEmits({
   },
 })
 
+defineExpose({ scrollToHour })
+
 const timelineItemRefs = ref([])
 
-onMounted(scrollToCurrentTimelineItem)
+watchPostEffect(async () => {
+  if (props.currentPage === PAGE_TIMELINE) {
+    await nextTick()
+    scrollToHour(null, false)
+  }
+})
 
-function scrollToCurrentTimelineItem() {
-  const currentHour = new Date().getHours()
-  if (currentHour === MIDNIGHT_HOUR) {
-    document.body.scrollIntoView()
+function scrollToHour(hour: number = null, isSmooth: boolean = true) {
+  hour ??= new Date().getHours()
+  // опция для выбора плавной или обычной прокрутки прокрутки
+  const options = { behavior: isSmooth ? 'smooth' : 'instant' }
+  if (hour === MIDNIGHT_HOUR) {
+    document.body.scrollIntoView(options)
   } else {
-    timelineItemRefs.value[currentHour - 1].$el.scrollIntoView()
+    timelineItemRefs.value[hour - 1].$el.scrollIntoView(options)
   }
 }
 </script>
