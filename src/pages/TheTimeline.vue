@@ -1,9 +1,17 @@
 <template>
   <div class="mt-7">
     <ul>
-      <TimelineItem v-for="timelineItem in timelineItems" :key="timelineItem.hour" :timeline-item="timelineItem"
-        :activity-select-options="activitySelectOptions" :activities="activities" ref="timelineItemRefs"
-        @select-activity="emit('setTimelineItemActivity', timelineItem, $event)" @scroll-to-hour="scrollToHour" />
+      <TimelineItem
+        v-for="timelineItem in timelineItems"
+        :key="timelineItem.hour"
+        :timeline-item="timelineItem"
+        :activity-select-options="activitySelectOptions"
+        :activities="activities"
+        ref="timelineItemRefs"
+        @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
+        @scroll-to-hour="scrollToHour"
+        @update-activity-seconds="emit('updateTimelineItemActivitySeconds', timelineItem, $event)"
+      />
     </ul>
   </div>
 </template>
@@ -18,6 +26,7 @@ import {
   isTimelineItemValid,
   isActivityValid,
   isPageValid,
+  isNumber,
 } from '@/validators.ts'
 import { MIDNIGHT_HOUR, PAGE_TIMELINE } from '@/constants.ts'
 import type { TimelineItemType } from '@/validators.ts'
@@ -49,6 +58,9 @@ const props = defineProps({
 const emit = defineEmits({
   setTimelineItemActivity(timelineItem, activity) {
     return [isTimelineItemValid(timelineItem), isActivityValid(activity)].every(Boolean)
+  },
+  updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
+    return [isTimelineItemValid(timelineItem), isNumber(activitySeconds)].every(Boolean)
   },
 })
 

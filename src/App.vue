@@ -50,6 +50,11 @@ function createActivity(activity: ActivityType) {
 function setTimelineItemActivity(timelineItem, activity) {
   timelineItem.activityId = activity.id
 }
+
+function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
+  timelineItem.activitySeconds += activitySeconds
+}
+
 function setActivitySecondsToComplete(activity, secondsToComplete) {
   activity.secondsToComplete = secondsToComplete
 }
@@ -58,12 +63,24 @@ function setActivitySecondsToComplete(activity, secondsToComplete) {
 <template>
   <TheHeader @navigate="goTo($event)" />
   <main class="flex flex-grow flex-col">
-    <TheTimeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems"
-      :activity-select-options="activitySelectOptions" :current-page="currentPage" :activities="activities"
-      @set-timeline-item-activity="setTimelineItemActivity" ref="timeline" />
-    <TheActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" @delete-activity="deleteActivity"
-      @create-activity="createActivity" @set-activity-seconds-to-complete="setActivitySecondsToComplete"
-      :timeline-items="timelineItems" />
+    <TheTimeline
+      v-show="currentPage === PAGE_TIMELINE"
+      :timeline-items="timelineItems"
+      :activity-select-options="activitySelectOptions"
+      :current-page="currentPage"
+      :activities="activities"
+      @set-timeline-item-activity="setTimelineItemActivity"
+      ref="timeline"
+      @update-timeline-item-activity-seconds="updateTimelineItemActivitySeconds"
+    />
+    <TheActivities
+      v-show="currentPage === PAGE_ACTIVITIES"
+      :activities="activities"
+      @delete-activity="deleteActivity"
+      @create-activity="createActivity"
+      @set-activity-seconds-to-complete="setActivitySecondsToComplete"
+      :timeline-items="timelineItems"
+    />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <TheNav :current-page="currentPage" @navigate="goTo($event)" />
