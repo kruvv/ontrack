@@ -1,17 +1,9 @@
 <template>
   <div class="mt-7">
     <ul>
-      <TimelineItem
-        v-for="timelineItem in timelineItems"
-        :key="timelineItem.hour"
-        :timeline-item="timelineItem"
-        :activity-select-options="activitySelectOptions"
-        :activities="activities"
-        ref="timelineItemRefs"
-        @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
-        @scroll-to-hour="scrollToHour"
-        @update-activity-seconds="emit('updateTimelineItemActivitySeconds', timelineItem, $event)"
-      />
+      <TimelineItem v-for="timelineItem in timelineItems" :key="timelineItem.hour" :timeline-item="timelineItem"
+        ref="timelineItemRefs" @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
+        @scroll-to-hour="scrollToHour" />
     </ul>
   </div>
 </template>
@@ -21,12 +13,9 @@ import { ref, watchPostEffect, nextTick } from 'vue'
 import TimelineItem from '@/components/TimelineItem.vue'
 import {
   validateTimelineItems,
-  validateSelectOptions,
-  validateActivities,
   isTimelineItemValid,
   isActivityValid,
   isPageValid,
-  isNumber,
 } from '@/validators.ts'
 import { MIDNIGHT_HOUR, PAGE_TIMELINE } from '@/constants.ts'
 import type { TimelineItemType } from '@/validators.ts'
@@ -38,16 +27,6 @@ const props = defineProps({
     required: true,
     validator: validateTimelineItems,
   },
-  activitySelectOptions: {
-    type: Array,
-    required: true,
-    validator: validateSelectOptions,
-  },
-  activities: {
-    type: Array,
-    requered: true,
-    validator: validateActivities,
-  },
   currentPage: {
     type: String,
     requered: true,
@@ -58,9 +37,6 @@ const props = defineProps({
 const emit = defineEmits({
   setTimelineItemActivity(timelineItem, activity) {
     return [isTimelineItemValid(timelineItem), isActivityValid(activity)].every(Boolean)
-  },
-  updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
-    return [isTimelineItemValid(timelineItem), isNumber(activitySeconds)].every(Boolean)
   },
 })
 

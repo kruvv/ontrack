@@ -5,11 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import { formatSeconds, getTotalActivitySeconds } from '@/functions.ts'
-import { isActivityValid, validateTimelineItems } from '@/validators.ts'
-import type { TimelineItemType } from '@/validators.ts'
-import type { PropType } from 'vue'
+import { isActivityValid } from '@/validators.ts'
 
 const props = defineProps({
   activity: {
@@ -17,12 +15,9 @@ const props = defineProps({
     required: true,
     validator: isActivityValid,
   },
-  timelineItems: {
-    type: Array as PropType<TimelineItemType[]>,
-    required: true,
-    validator: validateTimelineItems,
-  },
 })
+
+const timelineItems = inject('timelineItems')
 
 const classes = computed(
   () =>
@@ -38,8 +33,7 @@ const seconds = computed(() => `${sign.value}${formatSeconds(secondsDiff.value)}
 const sign = computed(() => (secondsDiff.value >= 0 ? '+' : '-'))
 
 const secondsDiff = computed(
-  () =>
-    getTotalActivitySeconds(props.activity, props.timelineItems) - props.activity.secondsToComplete,
+  () => getTotalActivitySeconds(props.activity, timelineItems) - props.activity.secondsToComplete,
 )
 </script>
 

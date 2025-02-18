@@ -4,7 +4,7 @@ import TheNav from '@/components/TheNav.vue'
 import TheTimeline from '@/pages/TheTimeline.vue'
 import TheActivities from '@/pages/TheActivities.vue'
 import TheProgress from '@/pages/TheProgress.vue'
-import { ref, computed } from 'vue'
+import { ref, computed, provide } from 'vue'
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants.ts'
 import {
   normalizePageHash,
@@ -58,29 +58,20 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
 function setActivitySecondsToComplete(activity, secondsToComplete) {
   activity.secondsToComplete = secondsToComplete
 }
+
+provide('activities', activities.value)
+provide('timelineItems', timelineItems.value)
+provide('activitySelectOptions', activitySelectOptions.value)
+provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 </script>
 
 <template>
   <TheHeader @navigate="goTo($event)" />
   <main class="flex flex-grow flex-col">
-    <TheTimeline
-      v-show="currentPage === PAGE_TIMELINE"
-      :timeline-items="timelineItems"
-      :activity-select-options="activitySelectOptions"
-      :current-page="currentPage"
-      :activities="activities"
-      @set-timeline-item-activity="setTimelineItemActivity"
-      ref="timeline"
-      @update-timeline-item-activity-seconds="updateTimelineItemActivitySeconds"
-    />
-    <TheActivities
-      v-show="currentPage === PAGE_ACTIVITIES"
-      :activities="activities"
-      @delete-activity="deleteActivity"
-      @create-activity="createActivity"
-      @set-activity-seconds-to-complete="setActivitySecondsToComplete"
-      :timeline-items="timelineItems"
-    />
+    <TheTimeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems" :current-page="currentPage"
+      :activities="activities" @set-timeline-item-activity="setTimelineItemActivity" ref="timeline" />
+    <TheActivities v-show="currentPage === PAGE_ACTIVITIES" @delete-activity="deleteActivity"
+      @create-activity="createActivity" @set-activity-seconds-to-complete="setActivitySecondsToComplete" />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <TheNav :current-page="currentPage" @navigate="goTo($event)" />

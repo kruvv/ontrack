@@ -1,59 +1,34 @@
 <template>
   <li class="relative flex flex-col gap-2 border-t border-grey-200 py-10 px-4">
-    <TimelineHour
-      :hour="timelineItem.hour"
-      @click.prevent="emit('scrollToHour', timelineItem.hour)"
-    />
-    <BaseSelect
-      :selected="timelineItem.activityId"
-      :options="activitySelectOptions"
-      placeholder="Rest"
-      @select="selectActivity"
-    />
-    <TimelineStopwatch
-      :seconds="timelineItem.activitySeconds"
-      :hour="timelineItem.hour"
-      @update-seconds="emit('updateActivitySeconds', $event)"
-    />
+    <TimelineHour :hour="timelineItem.hour" @click.prevent="emit('scrollToHour', timelineItem.hour)" />
+    <BaseSelect :selected="timelineItem.activityId" :options="activitySelectOptions" placeholder="Rest"
+      @select="selectActivity" />
+    <TimelineStopwatch :timeline-item="timelineItem" />
   </li>
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import TimelineStopwatch from '@/components/TimelineStopwatch.vue'
 import TimelineHour from '@/components/TimelineHour.vue'
-import {
-  isTimelineItemValid,
-  validateSelectOptions,
-  isActivityValid,
-  validateActivities,
-  isHourValid,
-  isNumber,
-} from '@/validators.ts'
+import { isTimelineItemValid, isActivityValid, isHourValid } from '@/validators.ts'
 import { NULLABLE_ACTIVITY } from '@/constants.ts'
 
-const props = defineProps({
+defineProps({
   timelineItem: {
     type: Object,
     required: true,
     validator: isTimelineItemValid,
   },
-  activitySelectOptions: {
-    type: Array,
-    required: true,
-    validator: validateSelectOptions,
-  },
-  activities: {
-    type: Array,
-    requered: true,
-    validator: validateActivities,
-  },
 })
+
+const activities = inject('activities')
+const activitySelectOptions = inject('activitySelectOptions')
 
 const emit = defineEmits({
   selectActivity: isActivityValid,
   scrollToHour: isHourValid,
-  updateActivitySeconds: isNumber,
 })
 
 function selectActivity(id) {
@@ -61,7 +36,7 @@ function selectActivity(id) {
 }
 
 function findActivityById(id) {
-  return props.activities.find((activity) => activity.id === id) || NULLABLE_ACTIVITY
+  return activities.find((activity) => activity.id === id) || NULLABLE_ACTIVITY
 }
 </script>
 
