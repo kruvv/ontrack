@@ -1,9 +1,13 @@
 <template>
   <div class="mt-7">
     <ul>
-      <TimelineItem v-for="timelineItem in timelineItems" :key="timelineItem.hour" :timeline-item="timelineItem"
-        ref="timelineItemRefs" @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
-        @scroll-to-hour="scrollToHour" />
+      <TimelineItem
+        v-for="timelineItem in timelineItems"
+        :key="timelineItem.hour"
+        :timeline-item="timelineItem"
+        ref="timelineItemRefs"
+        @scroll-to-hour="scrollToHour"
+      />
     </ul>
   </div>
 </template>
@@ -11,12 +15,7 @@
 <script setup lang="ts">
 import { ref, watchPostEffect, nextTick } from 'vue'
 import TimelineItem from '@/components/TimelineItem.vue'
-import {
-  validateTimelineItems,
-  isTimelineItemValid,
-  isActivityValid,
-  isPageValid,
-} from '@/validators.ts'
+import { validateTimelineItems, isPageValid } from '@/validators.ts'
 import { MIDNIGHT_HOUR, PAGE_TIMELINE } from '@/constants.ts'
 import type { TimelineItemType } from '@/validators.ts'
 import type { PropType } from 'vue'
@@ -31,12 +30,6 @@ const props = defineProps({
     type: String,
     requered: true,
     validator: isPageValid,
-  },
-})
-
-const emit = defineEmits({
-  setTimelineItemActivity(timelineItem, activity) {
-    return [isTimelineItemValid(timelineItem), isActivityValid(activity)].every(Boolean)
   },
 })
 

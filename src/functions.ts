@@ -67,7 +67,10 @@ function generatePeriodSelectOptionsLabel(periodsInMinutes: number) {
   return `${hours}:${minutes}`
 }
 
-export function generatePeriodSelectOptions(periodsInMinutes: number[]) {
+export function generatePeriodSelectOptions() {
+  const periodsInMinutes = [
+    15, 30, 45, 60, 90, 120, 150, 180, 210, 180, 240, 270, 300, 330, 360, 390, 420, 450, 480,
+  ]
   return periodsInMinutes.map((periodsInMinutes) => ({
     value: periodsInMinutes * SECONDS_IN_MINUTE,
     label: generatePeriodSelectOptionsLabel(periodsInMinutes),

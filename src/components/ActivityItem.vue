@@ -7,21 +7,17 @@
       <span class="truncate text-xl">{{ activity.name }}</span>
     </div>
     <div class="flex gap-2">
-      <BaseSelect
-        class="font-mono grow"
-        :selected="activity.secondsToComplete || null"
-        placeholder="hh:mm"
-        :options="PERIOD_SELECT_OPTIONS"
-        @select="emit('setSecondsToComplete', $event || 0)"
-      />
+      <BaseSelect class="font-mono grow" :selected="activity.secondsToComplete || null" placeholder="hh:mm"
+        :options="periodSelectOptions" @select="emit('setSecondsToComplete', $event || 0)" />
       <ActivitySecondsToComplete v-if="activity.secondsToComplete" :activity="activity" />
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue'
 import type { PropType } from 'vue'
-import { PERIOD_SELECT_OPTIONS, BUTTON_TYPE_DANGER } from '@/constants.ts'
+import { BUTTON_TYPE_DANGER } from '@/constants.ts'
 import { TrashIcon } from '@heroicons/vue/24/outline'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseButton from '@/components/BaseButton.vue'
@@ -41,6 +37,8 @@ const emit = defineEmits({
   delete: /*isNull,*/ isUndefined,
   setSecondsToComplete: isNumber,
 })
+
+const periodSelectOptions = inject('periodSelectOptions')
 </script>
 
 <style scoped></style>

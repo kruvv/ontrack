@@ -11,6 +11,7 @@ import {
   generateTimeLineItems,
   generateActivitySelectOptions,
   generateActivities,
+  generatePeriodSelectOptions,
 } from '@/functions.ts'
 import type { TimelineItemType, SelectOptionsType, ActivityType } from '@/validators.ts'
 
@@ -47,31 +48,44 @@ function createActivity(activity: ActivityType) {
   activities.value.push(activity)
 }
 
-function setTimelineItemActivity(timelineItem, activity) {
-  timelineItem.activityId = activity.id
+function setTimelineItemActivity(timelineItem: TimelineItemType, activityId: string | null) {
+  timelineItem.activityId = activityId
 }
 
-function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
+function updateTimelineItemActivitySeconds(
+  timelineItem: TimelineItemType,
+  activitySeconds: number,
+) {
   timelineItem.activitySeconds += activitySeconds
 }
 
-function setActivitySecondsToComplete(activity, secondsToComplete) {
+function setActivitySecondsToComplete(activity: ActivityType, secondsToComplete: number) {
   activity.secondsToComplete = secondsToComplete
 }
 
-provide('activities', activities.value)
 provide('timelineItems', timelineItems.value)
+provide('setTimelineItemActivity', setTimelineItemActivity)
 provide('activitySelectOptions', activitySelectOptions.value)
+provide('periodSelectOptions', generatePeriodSelectOptions())
 provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 </script>
 
 <template>
   <TheHeader @navigate="goTo($event)" />
   <main class="flex flex-grow flex-col">
-    <TheTimeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems" :current-page="currentPage"
-      :activities="activities" @set-timeline-item-activity="setTimelineItemActivity" ref="timeline" />
-    <TheActivities v-show="currentPage === PAGE_ACTIVITIES" @delete-activity="deleteActivity"
-      @create-activity="createActivity" @set-activity-seconds-to-complete="setActivitySecondsToComplete" />
+    <TheTimeline
+      v-show="currentPage === PAGE_TIMELINE"
+      :timeline-items="timelineItems"
+      :current-page="currentPage"
+      :activities="activities"
+      ref="timeline"
+    />
+    <TheActivities
+      v-show="currentPage === PAGE_ACTIVITIES"
+      @delete-activity="deleteActivity"
+      @create-activity="createActivity"
+      @set-activity-seconds-to-complete="setActivitySecondsToComplete"
+    />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <TheNav :current-page="currentPage" @navigate="goTo($event)" />
