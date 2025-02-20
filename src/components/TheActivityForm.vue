@@ -9,24 +9,21 @@
 
 <script setup lang="ts">
 import { SECONDS_IN_HOUR } from '@/constants.ts'
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, inject } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { PlusIcon } from '@heroicons/vue/24/outline'
-import { isActivityValid } from '@/validators.ts'
 import { id } from '@/functions.ts'
 
-const emit = defineEmits({
-  submit: isActivityValid,
-})
-
+const createActivity = inject('createActivity')
 const name = ref<string>('')
 
 async function submit() {
-  emit('submit', {
+  createActivity({
     id: id(),
     name: name.value.trim(),
     secondsToComplete: 0 * SECONDS_IN_HOUR,
   })
+
   name.value = ''
 
   // Прокрутка до новой активности

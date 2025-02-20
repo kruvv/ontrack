@@ -64,6 +64,9 @@ function setActivitySecondsToComplete(activity: ActivityType, secondsToComplete:
 }
 
 provide('timelineItems', timelineItems.value)
+provide('createActivity', createActivity)
+provide('deleteActivity', deleteActivity)
+provide('setActivitySecondsToComplete', setActivitySecondsToComplete)
 provide('setTimelineItemActivity', setTimelineItemActivity)
 provide('activitySelectOptions', activitySelectOptions.value)
 provide('periodSelectOptions', generatePeriodSelectOptions())
@@ -73,19 +76,9 @@ provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 <template>
   <TheHeader @navigate="goTo($event)" />
   <main class="flex flex-grow flex-col">
-    <TheTimeline
-      v-show="currentPage === PAGE_TIMELINE"
-      :timeline-items="timelineItems"
-      :current-page="currentPage"
-      :activities="activities"
-      ref="timeline"
-    />
-    <TheActivities
-      v-show="currentPage === PAGE_ACTIVITIES"
-      @delete-activity="deleteActivity"
-      @create-activity="createActivity"
-      @set-activity-seconds-to-complete="setActivitySecondsToComplete"
-    />
+    <TheTimeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems" :current-page="currentPage"
+      :activities="activities" ref="timeline" />
+    <TheActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <TheNav :current-page="currentPage" @navigate="goTo($event)" />
