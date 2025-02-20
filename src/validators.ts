@@ -38,7 +38,11 @@ export function validateSelectOptions(options: SelectOptionsType[]) {
 }
 
 function isSelectOptionValid({ value, label }: SelectOptionsType) {
-  return (isNumber(value) || isNotEmptyString(value)) && isNotEmptyString(label)
+  if (typeof value === 'number') {
+    return isNumber(value) && isNotEmptyString(label)
+  } else {
+    return isNotEmptyString(value) && isNotEmptyString(label)
+  }
 }
 
 export function validateTimelineItems(timelineItems: TimelineItemType[]) {
@@ -50,8 +54,7 @@ export function isUndefinedOrNull(value?: number) {
 }
 
 export function isNumberOrNull(value: number | null) {
-  if (typeof value === 'number') return isNumber(value)
-  if (value === null) return isNull(value)
+  return typeof value === 'number' ? isNumber(value) : isNull(value)
 }
 
 export function isNull(value: number | null) {
@@ -75,9 +78,7 @@ function isBetween(value: number, start: number, end: number) {
 }
 
 export function isActivityValid({ id, name, secondsToComplete }: ActivityType) {
-  if (isNull(id)) {
-    return true
-  }
+  if (id === null) return true
   return [isNotEmptyString(id), isNotEmptyString(name), isNumber(secondsToComplete)].every(Boolean)
 }
 
@@ -89,6 +90,6 @@ export function validateActivities(activities: ActivityType[]) {
   return activities.every(isActivityValid)
 }
 
-export function isSelectValueValid(value) {
-  return isNotEmptyString(value) || isNumberOrNull(value)
+export function isSelectValueValid(value: string | number | null) {
+  return typeof value === 'string' ? isNotEmptyString(value) : isNumberOrNull(value)
 }

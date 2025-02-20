@@ -6,7 +6,7 @@ import {
   MINUTES_IN_HOUR,
   MILLISECONDS_IN_SECOND,
 } from '@/constants.ts'
-import { isPageValid, isNull } from '@/validators.ts'
+import { isPageValid } from '@/validators.ts'
 import type { ActivityType, TimelineItemType } from '@/validators.ts'
 
 // Проверяем хеш в адресе страницы, если нужно нормализуем его к виду host/ontrack/#timeline
@@ -17,9 +17,11 @@ export function normalizePageHash() {
   return PAGE_TIMELINE
 }
 
-export function normalizeSelectValue(value: number | string) {
-  return isNull(value) || isNaN(value) ? value : +value
+export function normalizeSelectValue(value: number | string | null) {
+  if (value === null) return value
+  return typeof value === 'number' && isNaN(value) ? value : +value
 }
+
 export function generateActivities() {
   return ['Coding', 'Training', 'Reading'].map((name, hours) => ({
     id: id(),
