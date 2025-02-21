@@ -17,8 +17,12 @@ export type ActivityType = {
   secondsToComplete: number
 }
 
+export function isNavItemValid(navItem) {
+  return NAV_ITEMS.includes(navItem)
+}
+
 export function isPageValid(page: string): boolean {
-  return Object.keys(NAV_ITEMS).includes(page)
+  return NAV_ITEMS.some((navItem) => navItem.page === page)
 }
 
 export function isButtonTypeValid(type: string) {

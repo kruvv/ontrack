@@ -7,34 +7,21 @@ import TheProgress from '@/pages/TheProgress.vue'
 import { ref, computed, provide } from 'vue'
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants.ts'
 import {
-  normalizePageHash,
   generateTimeLineItems,
   generateActivitySelectOptions,
   generateActivities,
   generatePeriodSelectOptions,
 } from '@/functions.ts'
+import { currentPage, timelineRef } from '@/router.ts'
 import type { TimelineItemType, SelectOptionsType, ActivityType } from '@/validators.ts'
 
-const currentPage = ref(normalizePageHash())
 const activities = ref<ActivityType[]>(generateActivities())
-const timelineItems: TimelineItemType[] = ref(generateTimeLineItems(activities.value))
-const timeline = ref()
-const activitySelectOptions: SelectOptionsType[] = computed(() =>
+const timelineItems = ref<TimelineItemType[]>(generateTimeLineItems(activities.value))
+const activitySelectOptions = computed<SelectOptionsType[]>(() =>
   generateActivitySelectOptions(activities.value),
 )
 
-function goTo(page: string) {
-  if (currentPage.value === PAGE_TIMELINE && page === PAGE_TIMELINE) {
-    timeline.value.scrollToHour()
-  }
-
-  if (page !== PAGE_TIMELINE) {
-    document.body.scrollIntoView()
-  }
-  currentPage.value = page
-}
-
-function deleteActivity(activity: string) {
+function deleteActivity(activity: ActivityType) {
   timelineItems.value.forEach((timelineItem) => {
     if (timelineItem.activityId === activity.id) {
       timelineItem.activityId = null
@@ -48,18 +35,18 @@ function createActivity(activity: ActivityType) {
   activities.value.push(activity)
 }
 
-function setTimelineItemActivity(timelineItem: TimelineItemType, activityId: string | null) {
+function setTimelineItemActivity(timelineItem: TimelineItemType, activityId: string | null): void {
   timelineItem.activityId = activityId
 }
 
 function updateTimelineItemActivitySeconds(
   timelineItem: TimelineItemType,
   activitySeconds: number,
-) {
+): void {
   timelineItem.activitySeconds += activitySeconds
 }
 
-function setActivitySecondsToComplete(activity: ActivityType, secondsToComplete: number) {
+function setActivitySecondsToComplete(activity: ActivityType, secondsToComplete: number): void {
   activity.secondsToComplete = secondsToComplete
 }
 
@@ -74,14 +61,12 @@ provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 </script>
 
 <template>
-  <TheHeader @navigate="goTo($event)" />
+  <TheHeader />
   <main class="flex flex-grow flex-col">
-    <TheTimeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems" :current-page="currentPage"
-      :activities="activities" ref="timeline" />
+    <TheTimeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems" :activities="activities"
+      ref="timelineRef" />
     <TheActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
-  <TheNav :current-page="currentPage" @navigate="goTo($event)" />
+  <TheNav />
 </template>
-
-<style scoped></style>
