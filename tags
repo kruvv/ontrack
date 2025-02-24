@@ -59,20 +59,21 @@ HOURS_IN_DAY	./src/constants.ts	/^export const HOURS_IN_DAY = 24$/;"	C
 MIDNIGHT_HOUR	./src/constants.ts	/^export const MIDNIGHT_HOUR = 0$/;"	C
 MILLISECONDS_IN_SECOND	./src/constants.ts	/^export const MILLISECONDS_IN_SECOND = 1000$/;"	C
 MINUTES_IN_HOUR	./src/constants.ts	/^export const MINUTES_IN_HOUR = 60$/;"	C
-NAV_ITEMS	./src/constants.ts	/^export const NAV_ITEMS = {$/;"	C
-PAGE_ACTIVITIES	./src/constants.ts	/^  [PAGE_ACTIVITIES]: ListBulletIcon,$/;"	C
+NAV_ITEMS	./src/constants.ts	/^export const NAV_ITEMS = [$/;"	C
 PAGE_ACTIVITIES	./src/constants.ts	/^export const PAGE_ACTIVITIES = 'activities'$/;"	C
-PAGE_PROGRESS	./src/constants.ts	/^  [PAGE_PROGRESS]: ChartBarIcon,$/;"	C
 PAGE_PROGRESS	./src/constants.ts	/^export const PAGE_PROGRESS = 'progress'$/;"	C
 PAGE_TIMELINE	./src/constants.ts	/^export const PAGE_TIMELINE = 'timeline'$/;"	C
 SECONDS_IN_HOUR	./src/constants.ts	/^export const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * MINUTES_IN_HOUR$/;"	C
 SECONDS_IN_MINUTE	./src/constants.ts	/^export const SECONDS_IN_MINUTE = 60$/;"	C
 SelectOptionsType	./src/validators.ts	/^export type SelectOptionsType = {$/;"	a
 TimelineItemType	./src/validators.ts	/^export type TimelineItemType = {$/;"	a
+activitySelectOptionsKey	./src/keys.ts	/^export const activitySelectOptionsKey = Symbol()$/;"	C
 const	./src/constants.ts	/^export const BUTTON_TYPE_PRIMARY = 'primary'$/;"	C
 const	./src/constants.ts	/^export const MILLISECONDS_IN_SECOND = 1000$/;"	C
+createActivityKey	./src/keys.ts	/^export const createActivityKey = Symbol()$/;"	C
 currentPage	./src/router.ts	/^export const currentPage = ref(normalizePageHash())$/;"	C
 date	./src/functions.ts	/^  const date = new Date()$/;"	C	function:generatePeriodSelectOptions
+deleteActivityKey	./src/keys.ts	/^export const deleteActivityKey = Symbol()$/;"	C
 export	./src/constants.ts	/^export const BUTTON_TYPE_PRIMARY = 'primary'$/;"	C
 export	./src/constants.ts	/^export const MILLISECONDS_IN_SECOND = 1000$/;"	C
 export	./src/functions.ts	/^export function formatSeconds(seconds: number) {$/;"	C	function:generatePeriodSelectOptions
@@ -84,10 +85,14 @@ generatePeriodSelectOptionsLabel	./src/functions.ts	/^function generatePeriodSel
 generateTimeLineItems	./src/functions.ts	/^export function generateTimeLineItems(activities: ActivityType[]) {$/;"	f
 getTotalActivitySeconds	./src/functions.ts	/^export function getTotalActivitySeconds(activity: ActivityType, timelineItems: TimelineItemType[/;"	f
 hours	./src/functions.ts	/^  const hours = Math.floor(periodsInMinutes \/ MINUTES_IN_HOUR)$/;"	C	function:generatePeriodSelectOptionsLabel
+icon	./src/constants.ts	/^  { page: PAGE_ACTIVITIES, icon: ListBulletIcon },$/;"	C
+icon	./src/constants.ts	/^  { page: PAGE_PROGRESS, icon: ChartBarIcon },$/;"	C
+icon	./src/constants.ts	/^  { page: PAGE_TIMELINE, icon: ClockIcon },$/;"	C
 id	./src/functions.ts	/^export function id() {$/;"	f
 isBetween	./src/validators.ts	/^function isBetween(value: number, start: number, end: number) {$/;"	f
 isButtonTypeValid	./src/validators.ts	/^export function isButtonTypeValid(type: string) {$/;"	f
 isHourValid	./src/validators.ts	/^export function isHourValid(hour: number) {$/;"	f
+isNavItemValid	./src/validators.ts	/^export function isNavItemValid(navItem) {$/;"	f
 isNull	./src/validators.ts	/^export function isNull(value: number | null) {$/;"	f
 isNumber	./src/validators.ts	/^export function isNumber(value: number) {$/;"	f
 isNumberOrNull	./src/validators.ts	/^export function isNumberOrNull(value: number | null) {$/;"	f
@@ -100,15 +105,22 @@ isUndefined	./src/validators.ts	/^export function isUndefined(value: number | un
 isUndefinedOrNull	./src/validators.ts	/^export function isUndefinedOrNull(value?: number) {$/;"	f
 minutes	./src/functions.ts	/^  const minutes = (periodsInMinutes % MINUTES_IN_HOUR).toString().padStart(2, '0')$/;"	C	function:generatePeriodSelectOptionsLabel
 navigate	./src/router.ts	/^export function navigate(page: string) {$/;"	f
-normalizePageHash	./src/functions.ts	/^export function normalizePageHash() {$/;"	f
+normalizePageHash	./src/router.ts	/^function normalizePageHash() {$/;"	f
 normalizeSelectValue	./src/functions.ts	/^export function normalizeSelectValue(value: number | string | null) {$/;"	f
 ns5d2975b30101	./src/assets/img/no_tracked_activities.svg	/^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" data-name="Layer 1" width="700.74679" height="597.77/;"	n	uri:http://www.w3.org/2000/svg
 nse201f1b60101	./src/assets/img/no_activities.svg	/^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" data-name="Layer 1" width="647.63626" height="632.17/;"	n	uri:http://www.w3.org/2000/svg
-page	./src/functions.ts	/^  const page = window.location.hash.slice(1)$/;"	C	function:normalizePageHash
+page	./src/constants.ts	/^  { page: PAGE_ACTIVITIES, icon: ListBulletIcon },$/;"	C
+page	./src/constants.ts	/^  { page: PAGE_PROGRESS, icon: ChartBarIcon },$/;"	C
+page	./src/router.ts	/^  const page = window.location.hash.slice(1)$/;"	C	function:normalizePageHash
+periodSelectOptionsKey	./src/keys.ts	/^export const periodSelectOptionsKey = Symbol()$/;"	C
 periodsInMinutes	./src/functions.ts	/^  const periodsInMinutes = [$/;"	C	function:generatePeriodSelectOptions
 periodsInMinutes	./src/functions.ts	/^  return periodsInMinutes.map((periodsInMinutes) => ({$/;"	C	function:generatePeriodSelectOptions
 return	./src/functions.ts	/^  return periodsInMinutes.map((periodsInMinutes) => ({$/;"	C	function:generatePeriodSelectOptions
-timelineRef	./src/router.ts	/^const timelineRef = ref()$/;"	C
+setActivitySecondsToCompleteKey	./src/keys.ts	/^export const setActivitySecondsToCompleteKey = Symbol()$/;"	C
+setTimelineItemActivityKey	./src/keys.ts	/^export const setTimelineItemActivityKey = Symbol()$/;"	C
+timelineItemsKey	./src/keys.ts	/^export const timelineItemsKey = Symbol()$/;"	C
+timelineRef	./src/router.ts	/^export const timelineRef = ref()$/;"	C
+updateTimelineItemActivitySecondsKey	./src/keys.ts	/^export const updateTimelineItemActivitySecondsKey = Symbol()$/;"	C
 utc	./src/functions.ts	/^  const utc = date.toUTCString()$/;"	C	function:generatePeriodSelectOptions
 validateActivities	./src/validators.ts	/^export function validateActivities(activities: ActivityType[]) {$/;"	f
 validateSelectOptions	./src/validators.ts	/^export function validateSelectOptions(options: SelectOptionsType[]) {$/;"	f

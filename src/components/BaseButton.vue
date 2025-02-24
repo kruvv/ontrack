@@ -1,5 +1,5 @@
 <template>
-  <button :class="`${typeClasses[type]} rounded  disabled:cursor-not-allowed disabled:opacity-50`">
+  <button :class="classes">
     <slot></slot>
   </button>
 </template>
@@ -28,13 +28,14 @@ const typeClasses: TypeClasses = {
 <script setup lang="ts">
 import { isButtonTypeValid } from '@/validators.ts'
 
-defineProps({
+const props = defineProps({
   type: {
     type: String,
     default: BUTTON_TYPE_PRIMARY,
     validator: isButtonTypeValid,
   },
 })
+const classes = `${typeClasses[props.type]} rounded  disabled:cursor-not-allowed disabled:opacity-50`
 </script>
 
 <style lang="scss" scoped></style>

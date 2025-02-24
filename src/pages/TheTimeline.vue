@@ -6,7 +6,7 @@
         :key="timelineItem.hour"
         :timeline-item="timelineItem"
         ref="timelineItemRefs"
-        @scroll-to-hour="scrollToHour"
+        @scroll-to-hour="scrollToHour(timelineItem.hour)"
       />
     </ul>
   </div>
@@ -20,6 +20,7 @@ import { currentPage } from '@/router.ts'
 import { MIDNIGHT_HOUR, PAGE_TIMELINE } from '@/constants.ts'
 import type { TimelineItemType } from '@/validators.ts'
 import type { PropType } from 'vue'
+import { currentHour } from '@/functions.ts'
 
 defineProps({
   timelineItems: {
@@ -41,7 +42,7 @@ watchPostEffect(async () => {
 })
 
 function scrollToHour(hour: number | null = null, isSmooth: boolean = true) {
-  hour ??= new Date().getHours()
+  hour ??= currentHour()
   // опция для выбора плавной или обычной прокрутки прокрутки
   const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el
   el.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'instant' })

@@ -8,7 +8,7 @@
     </div>
     <div class="flex gap-2">
       <BaseSelect class="font-mono grow" :selected="activity.secondsToComplete || null" placeholder="hh:mm"
-        :options="periodSelectOptions" @select="setActivitySecondsToComplete(activity, $event || 0)" />
+        :options="periodSelectOptions" @select="setActivitySecondsToComplete(activity, $event)" />
       <ActivitySecondsToComplete v-if="activity.secondsToComplete" :activity="activity" />
     </div>
   </li>

@@ -49,7 +49,7 @@ function updateTimelineItemActivitySeconds(
 }
 
 function setActivitySecondsToComplete(activity: ActivityType, secondsToComplete: number): void {
-  activity.secondsToComplete = secondsToComplete
+  activity.secondsToComplete = secondsToComplete || 0
 }
 
 provide(keys.timelineItemsKey, readonly(timelineItems.value))

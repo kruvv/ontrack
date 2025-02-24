@@ -8,11 +8,15 @@ import {
 import type { ActivityType, TimelineItemType } from '@/validators.ts'
 import { isNull } from '@/validators.ts'
 
+export function currentHour() {
+  return new Date().getHours()
+}
+
 export function normalizeSelectValue(value: number | string | null) {
   //:TODO  Странная логика валидации
   // if (value === null || typeof value === 'number') return value
   // return   typeof value === 'string' && isNaN(value) ? value : +value
-  debugger
+  // debugger
   return isNull(value) || isNaN(value) ? value : +value
 }
 
