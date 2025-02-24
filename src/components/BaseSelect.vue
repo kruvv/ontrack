@@ -46,6 +46,7 @@ const isNotSelected = computed(() => {
 })
 
 function select(value) {
+  debugger
   emit('select', normalizeSelectValue(value))
 }
 </script>

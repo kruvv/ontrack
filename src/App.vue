@@ -4,7 +4,7 @@ import TheNav from '@/components/TheNav.vue'
 import TheTimeline from '@/pages/TheTimeline.vue'
 import TheActivities from '@/pages/TheActivities.vue'
 import TheProgress from '@/pages/TheProgress.vue'
-import { ref, computed, provide } from 'vue'
+import { ref, computed, provide, readonly } from 'vue'
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants.ts'
 import {
   generateTimeLineItems,
@@ -14,6 +14,7 @@ import {
 } from '@/functions.ts'
 import { currentPage, timelineRef } from '@/router.ts'
 import type { TimelineItemType, SelectOptionsType, ActivityType } from '@/validators.ts'
+import * as keys from '@/keys.ts'
 
 const activities = ref<ActivityType[]>(generateActivities())
 const timelineItems = ref<TimelineItemType[]>(generateTimeLineItems(activities.value))
@@ -36,6 +37,7 @@ function createActivity(activity: ActivityType) {
 }
 
 function setTimelineItemActivity(timelineItem: TimelineItemType, activityId: string | null): void {
+  // debugger debugger
   timelineItem.activityId = activityId
 }
 
@@ -50,14 +52,14 @@ function setActivitySecondsToComplete(activity: ActivityType, secondsToComplete:
   activity.secondsToComplete = secondsToComplete
 }
 
-provide('timelineItems', timelineItems.value)
-provide('createActivity', createActivity)
-provide('deleteActivity', deleteActivity)
-provide('setActivitySecondsToComplete', setActivitySecondsToComplete)
-provide('setTimelineItemActivity', setTimelineItemActivity)
-provide('activitySelectOptions', activitySelectOptions.value)
-provide('periodSelectOptions', generatePeriodSelectOptions())
-provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
+provide(keys.timelineItemsKey, readonly(timelineItems.value))
+provide(keys.createActivityKey, createActivity)
+provide(keys.deleteActivityKey, deleteActivity)
+provide(keys.setActivitySecondsToCompleteKey, setActivitySecondsToComplete)
+provide(keys.setTimelineItemActivityKey, setTimelineItemActivity)
+provide(keys.activitySelectOptionsKey, readonly(activitySelectOptions.value))
+provide(keys.periodSelectOptionsKey, readonly(generatePeriodSelectOptions()))
+provide(keys.updateTimelineItemActivitySecondsKey, updateTimelineItemActivitySeconds)
 </script>
 
 <template>

@@ -1,15 +1,8 @@
 <template>
   <li class="relative flex flex-col gap-2 border-t border-grey-200 py-10 px-4">
-    <TimelineHour
-      :hour="timelineItem.hour"
-      @click.prevent="emit('scrollToHour', timelineItem.hour)"
-    />
-    <BaseSelect
-      :selected="timelineItem.activityId"
-      :options="activitySelectOptions"
-      placeholder="Rest"
-      @select="setTimelineItemActivity(timelineItem, $event)"
-    />
+    <TimelineHour :hour="timelineItem.hour" @click.prevent="emit('scrollToHour', timelineItem.hour)" />
+    <BaseSelect :selected="timelineItem.activityId" :options="activitySelectOptions" placeholder="Rest"
+      @select="setTimelineItemActivity(timelineItem, $event)" />
     <TimelineStopwatch :timeline-item="timelineItem" />
   </li>
 </template>
@@ -21,6 +14,7 @@ import TimelineStopwatch from '@/components/TimelineStopwatch.vue'
 import TimelineHour from '@/components/TimelineHour.vue'
 import { isTimelineItemValid, isHourValid } from '@/validators.ts'
 import type { SelectOptionsType } from '@/validators.ts'
+import { activitySelectOptionsKey, setTimelineItemActivityKey } from '@/keys.ts'
 
 defineProps({
   timelineItem: {
@@ -30,8 +24,8 @@ defineProps({
   },
 })
 
-const activitySelectOptions: SelectOptionsType[] = inject('activitySelectOptions')!
-const setTimelineItemActivity = inject('setTimelineItemActivity')
+const activitySelectOptions: SelectOptionsType[] = inject(activitySelectOptionsKey)
+const setTimelineItemActivity = inject(setTimelineItemActivityKey)
 
 const emit = defineEmits({
   scrollToHour: isHourValid,

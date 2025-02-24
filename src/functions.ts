@@ -6,10 +6,14 @@ import {
   MILLISECONDS_IN_SECOND,
 } from '@/constants.ts'
 import type { ActivityType, TimelineItemType } from '@/validators.ts'
+import { isNull } from '@/validators.ts'
 
 export function normalizeSelectValue(value: number | string | null) {
-  if (value === null) return value
-  return typeof value === 'number' && isNaN(value) ? value : +value
+  //:TODO  Странная логика валидации
+  // if (value === null || typeof value === 'number') return value
+  // return   typeof value === 'string' && isNaN(value) ? value : +value
+  debugger
+  return isNull(value) || isNaN(value) ? value : +value
 }
 
 export function generateActivities() {

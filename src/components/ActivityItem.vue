@@ -24,6 +24,11 @@ import BaseButton from '@/components/BaseButton.vue'
 import ActivitySecondsToComplete from '@/components/ActivitySecondsToComplete.vue'
 import { isActivityValid } from '@/validators.ts'
 import type { ActivityType } from '@/validators.ts'
+import {
+  deleteActivityKey,
+  periodSelectOptionsKey,
+  setActivitySecondsToCompleteKey,
+} from '@/keys.ts'
 
 defineProps({
   activity: {
@@ -33,9 +38,9 @@ defineProps({
   },
 })
 
-const deleteActivity = inject('deleteActivity')
-const periodSelectOptions = inject('periodSelectOptions')
-const setActivitySecondsToComplete = inject('setActivitySecondsToComplete')
+const deleteActivity = inject(deleteActivityKey)
+const periodSelectOptions = inject(periodSelectOptionsKey)
+const setActivitySecondsToComplete = inject(setActivitySecondsToCompleteKey)
 </script>
 
 <style scoped></style>
