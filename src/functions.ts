@@ -1,31 +1,18 @@
-import {
-  HOURS_IN_DAY,
-  SECONDS_IN_HOUR,
-  SECONDS_IN_MINUTE,
-  MINUTES_IN_HOUR,
-  MILLISECONDS_IN_SECOND,
-} from '@/constants.ts'
-import type { ActivityType, TimelineItemType } from '@/validators.ts'
-import { isNull } from '@/validators.ts'
+import { SECONDS_IN_MINUTE, MINUTES_IN_HOUR, MILLISECONDS_IN_SECOND } from '@/constants'
+import type { ActivityType, TimelineItemType } from '@/validators'
+import { isNull } from '@/validators'
 
 export function currentHour() {
   return new Date().getHours()
 }
 
 export function normalizeSelectValue(value: number | string | null) {
-  //:TODO  Странная логика валидации
+  //TODO:  Странная логика валидации
   // if (value === null || typeof value === 'number') return value
   // return   typeof value === 'string' && isNaN(value) ? value : +value
   // debugger
+  // FIXME: это надо починить
   return isNull(value) || isNaN(value) ? value : +value
-}
-
-export function generateActivities() {
-  return ['Coding', 'Training', 'Reading'].map((name, hours) => ({
-    id: id(),
-    name,
-    secondsToComplete: hours * SECONDS_IN_HOUR,
-  }))
 }
 
 // Генерация случайного id
@@ -40,23 +27,6 @@ export function getTotalActivitySeconds(activity: ActivityType, timelineItems: T
       (totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds),
       0,
     )
-}
-
-// Герерация часов каждый день
-export function generateTimeLineItems(activities: ActivityType[]) {
-  return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
-    hour,
-    activityId: [1, 2, 3, 4, 5].includes(hour) ? activities[hour % 3].id : null,
-    activitySeconds: [1, 2, 3, 4, 5].includes(hour) ? hour * 600 : 0,
-
-    // activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
-    //    activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR,
-  }))
-}
-
-// Генерация активностей
-export function generateActivitySelectOptions(activities: ActivityType[]) {
-  return activities.map((activity) => ({ label: activity.name, value: activity.id }))
 }
 
 function generatePeriodSelectOptionsLabel(periodsInMinutes: number) {

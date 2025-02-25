@@ -17,7 +17,13 @@ export type ActivityType = {
   secondsToComplete: number
 }
 
-export function isNavItemValid(navItem) {
+//FIXME: добавить тип иконки
+export type NavItemType = {
+  page: string
+  icon: SVGGraphicsElement
+}
+
+export function isNavItemValid(navItem: NavItemType) {
   return NAV_ITEMS.includes(navItem)
 }
 
