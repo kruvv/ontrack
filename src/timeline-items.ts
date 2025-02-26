@@ -40,3 +40,12 @@ export function resetTimelineItemActivities(activity: ActivityType) {
     }
   })
 }
+
+export function getTotalActivitySeconds(activity: ActivityType) {
+  return timelineItems.value
+    .filter((timelineItem) => timelineItem.activityId === activity.id)
+    .reduce(
+      (totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds),
+      0,
+    )
+}

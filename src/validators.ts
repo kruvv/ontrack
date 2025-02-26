@@ -1,4 +1,5 @@
-import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES } from '@/constants.ts'
+import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES } from '@/constants'
+import type { NavItemType } from '@/constants'
 
 export type SelectOptionsType = {
   value: number | string
@@ -15,12 +16,6 @@ export type ActivityType = {
   id: string
   name: string
   secondsToComplete: number
-}
-
-//FIXME: добавить тип иконки
-export type NavItemType = {
-  page: string
-  icon: SVGGraphicsElement
 }
 
 export function isNavItemValid(navItem: NavItemType) {

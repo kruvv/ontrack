@@ -1,9 +1,17 @@
 import { ClockIcon, ListBulletIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
+
+// Типизация иконок
+type IconType = typeof ClockIcon | typeof ListBulletIcon | typeof ChartBarIcon
+export type NavItemType = {
+  page: string
+  icon: IconType
+}
+
 export const PAGE_TIMELINE = 'timeline'
 export const PAGE_ACTIVITIES = 'activities'
 export const PAGE_PROGRESS = 'progress'
 
-export const NAV_ITEMS = [
+export const NAV_ITEMS: NavItemType[] = [
   { page: PAGE_TIMELINE, icon: ClockIcon },
   { page: PAGE_ACTIVITIES, icon: ListBulletIcon },
   { page: PAGE_PROGRESS, icon: ChartBarIcon },
