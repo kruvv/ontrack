@@ -15,24 +15,22 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import type { PropType } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import TimelineStopwatch from '@/components/TimelineStopwatch.vue'
 import TimelineHour from '@/components/TimelineHour.vue'
-import { isTimelineItemValid, isUndefined } from '@/validators.ts'
-import type { SelectOptionsType } from '@/validators.ts'
-import { activitySelectOptionsKey, setTimelineItemActivityKey } from '@/keys.ts'
+import { isTimelineItemValid, isUndefined } from '@/validators'
+import type { TimelineItemType } from '@/validators'
+import { setTimelineItemActivity } from '@/timeline-items'
+import { activitySelectOptions } from '@/activities'
 
 defineProps({
     timelineItem: {
-        type: Object,
+        type: Object as PropType<TimelineItemType>,
         required: true,
         validator: isTimelineItemValid,
     },
 })
-
-const activitySelectOptions: SelectOptionsType[] = inject(activitySelectOptionsKey)
-const setTimelineItemActivity = inject(setTimelineItemActivityKey)
 
 const emit = defineEmits({
     scrollToHour: isUndefined,

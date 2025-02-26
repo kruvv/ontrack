@@ -29,7 +29,7 @@ export function updateTimelineItemActivitySeconds(
   timelineItem: TimelineItemType,
   activitySeconds: number,
 ): void {
-  timelineItem.activitySeconds += activitySeconds
+  timelineItem.activitySeconds = activitySeconds
 }
 
 export function resetTimelineItemActivities(activity: ActivityType) {
