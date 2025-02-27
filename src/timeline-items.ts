@@ -17,33 +17,48 @@ function generateTimeLineItems() {
 
 export const timelineItems = ref<TimelineItemType[]>(generateTimeLineItems())
 
-export function setTimelineItemActivity(
-  timelineItem: TimelineItemType,
-  activityId: string | null,
-): void {
-  // debugger debugger
-  timelineItem.activityId = activityId
+function hasActivity(timelineItem: TimelineItemType, activity: ActivityType) {
+  return timelineItem.activityId === activity.id
 }
 
-export function updateTimelineItemActivitySeconds(
-  timelineItem: TimelineItemType,
-  activitySeconds: number,
-): void {
-  timelineItem.activitySeconds = activitySeconds
+type FieldsType = {
+  [key: string]: string | number | null
 }
+
+export function updateTimelineItem(timelineItem: TimelineItemType, fields: FieldsType) {
+  return Object.assign(timelineItem, fields)
+}
+
+// TODO: Delete it
+// export function setTimelineItemActivity(
+//   timelineItem: TimelineItemType,
+//   activityId: string | null,
+// ): void {
+//   // debugger debugger
+//   timelineItem.activityId = activityId
+// }
+//
+// export function updateTimelineItemActivitySeconds(
+//   timelineItem: TimelineItemType,
+//   activitySeconds: number,
+// ): void {
+//   timelineItem.activitySeconds = activitySeconds
+// }
 
 export function resetTimelineItemActivities(activity: ActivityType) {
-  timelineItems.value.forEach((timelineItem) => {
-    if (timelineItem.activityId === activity.id) {
-      timelineItem.activityId = null
-      timelineItem.activitySeconds = 0
-    }
-  })
+  timelineItems.value
+    .filter((timelineItem) => hasActivity(timelineItem, activity))
+    .forEach((timelineItem) =>
+      updateTimelineItem(timelineItem, {
+        activityId: null,
+        activitySeconds: 0,
+      }),
+    )
 }
 
 export function getTotalActivitySeconds(activity: ActivityType) {
   return timelineItems.value
-    .filter((timelineItem) => timelineItem.activityId === activity.id)
+    .filter((timelineItem) => hasActivity(timelineItem, activity))
     .reduce(
       (totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds),
       0,

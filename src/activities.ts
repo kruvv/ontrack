@@ -30,9 +30,6 @@ export function createActivity(activity: ActivityType) {
   activities.value.push(activity)
 }
 
-export function setActivitySecondsToComplete(
-  activity: ActivityType,
-  secondsToComplete: number,
-): void {
-  activity.secondsToComplete = secondsToComplete || 0
+export function updateActivity(activity: ActivityType, fields: { secondsToComplete: number }) {
+  return Object.assign(activity, fields)
 }
