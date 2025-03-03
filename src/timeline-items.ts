@@ -1,7 +1,10 @@
 import { ref } from 'vue'
 import type { ActivityType, TimelineItemType } from '@/validators'
-import { HOURS_IN_DAY } from '@/constants'
+import { HOURS_IN_DAY, MIDNIGHT_HOUR } from '@/constants'
 import { activities } from '@/activities'
+import { currentHour } from '@/functions'
+
+export const timelineItemRefs = ref<TimelineItemType[]>([])
 
 // Герерация часов каждый день
 function generateTimeLineItems() {
@@ -63,4 +66,11 @@ export function getTotalActivitySeconds(activity: ActivityType) {
       (totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds),
       0,
     )
+}
+
+export function scrollToHour(hour: number | null = null, isSmooth: boolean = true) {
+  hour ??= currentHour()
+  // опция для выбора плавной или обычной прокрутки прокрутки
+  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el
+  el.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'instant' })
 }

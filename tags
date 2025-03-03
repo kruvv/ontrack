@@ -208,7 +208,6 @@ resetTimelineItemActivities	./src/timeline-items.ts	/^export function resetTimel
 return	./src/functions.ts	/^  return periodsInMinutes.map((periodsInMinutes) => ({$/;"	C	function:generatePeriodSelectOptions
 scrollToHour	./src/pages/TheTimeline.vue	/^function scrollToHour(hour: number | null = null, isSmooth: boolean = true) {$/;"	f
 select	./src/components/BaseSelect.vue	/^function select(value) {$/;"	f
-setActivitySecondsToComplete	./src/activities.ts	/^export function setActivitySecondsToComplete($/;"	f
 setSecondsToComplete	./src/pages/TheActivities.vue	/^function setSecondsToComplete(activity: ActivityType, secondsToComplete: number) {$/;"	f
 start	./src/components/TimelineStopwatch.vue	/^function start() {$/;"	f
 stop	./src/components/TimelineStopwatch.vue	/^function stop() {$/;"	f
@@ -231,7 +230,7 @@ style	./src/pages/TheProgress.vue	/^<style scoped><\/style>$/;"	s
 style	./src/pages/TheTimeline.vue	/^<style scoped><\/style>$/;"	s
 timelineItems	./src/timeline-items.ts	/^export const timelineItems = ref<TimelineItemType[]>(generateTimeLineItems())$/;"	C
 timelineRef	./src/router.ts	/^export const timelineRef = ref()$/;"	C
-updateActivity	./src/activities.ts	/^export function updateActivity(activity: ActivityType, fields: object) {$/;"	f
+updateActivity	./src/activities.ts	/^export function updateActivity(activity: ActivityType, fields: { secondsToComplete: number }) {$/;"	f
 updateTimelineItem	./src/timeline-items.ts	/^export function updateTimelineItem(timelineItem: TimelineItemType, fields: FieldsType) {$/;"	f
 utc	./src/functions.ts	/^  const utc = date.toUTCString()$/;"	C	function:generatePeriodSelectOptions
 v-for="activity in activities"	./src/pages/TheActivities.vue	/^      <ActivityItem v-for="activity in activities" :key="activity.id" :activity="activity"$/;"	c	template:<template>
@@ -239,7 +238,7 @@ v-for="navItem in NAV_ITEMS"	./src/components/TheNav.vue	/^                v-for
 v-for="timelineItem in timelineItems"	./src/pages/TheTimeline.vue	/^                v-for="timelineItem in timelineItems"$/;"	c	template:<template>
 v-for="{ value, label } in options"	./src/components/BaseSelect.vue	/^                v-for="{ value, label } in options"$/;"	c	template:<template>
 v-if="activities?.length > 0"	./src/pages/TheActivities.vue	/^    <ul v-if="activities?.length > 0" class="divide-y grow">$/;"	c	template:<template>
-v-if="activity.secondsToComplete"	./src/components/ActivityItem.vue	/^      <ActivitySecondsToComplete v-if="activity.secondsToComplete" :activity="activity" \/>$/;"	c	template:<template>
+v-if="activity.secondsToComplete"	./src/components/ActivityItem.vue	/^                v-if="activity.secondsToComplete"$/;"	c	template:<template>
 v-if="false"	./src/components/TheHeaderProgress.vue	/^            v-if="false"$/;"	c	template:<template>
 v-if="isRunning"	./src/components/TimelineStopwatch.vue	/^    <BaseButton v-if="isRunning" :type="BUTTON_TYPE_WARNING" @click="stop">$/;"	c	template:<template>
 v-show="currentPage === PAGE_ACTIVITIES"	./src/App.vue	/^        <TheActivities v-show="currentPage === PAGE_ACTIVITIES" \/>$/;"	c	template:<template>
