@@ -89,7 +89,9 @@ MINUTES_IN_HOUR	./src/constants.ts	/^export const MINUTES_IN_HOUR = 60$/;"	C
 NAV_ITEMS	./src/constants.ts	/^export const NAV_ITEMS: NavItemType[] = [$/;"	C
 NavItemType	./src/constants.ts	/^export type NavItemType = {$/;"	a
 PAGE_ACTIVITIES	./src/constants.ts	/^export const PAGE_ACTIVITIES = 'activities'$/;"	C
+PAGE_ACTIVITIES	./src/router.ts	/^  [PAGE_ACTIVITIES]: TheActivities,$/;"	C
 PAGE_PROGRESS	./src/constants.ts	/^export const PAGE_PROGRESS = 'progress'$/;"	C
+PAGE_PROGRESS	./src/router.ts	/^  [PAGE_PROGRESS]: TheProgress,$/;"	C
 PAGE_TIMELINE	./src/constants.ts	/^export const PAGE_TIMELINE = 'timeline'$/;"	C
 PERIOD_SELECT_OPTIONS	./src/constants.ts	/^export const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions()$/;"	C
 SECONDS_IN_HOUR	./src/constants.ts	/^export const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * MINUTES_IN_HOUR$/;"	C
@@ -100,15 +102,19 @@ activities	./src/activities.ts	/^export const activities = ref<ActivityType[]>(g
 activitySelectOptions	./src/activities.ts	/^export const activitySelectOptions = computed<SelectOptionsType[]>(() =>$/;"	C
 const	./src/constants.ts	/^export const BUTTON_TYPE_PRIMARY = 'primary'$/;"	C
 const	./src/constants.ts	/^export const MILLISECONDS_IN_SECOND = 1000$/;"	C
+const	./src/router.ts	/^export const currentPage = ref(normalizePageHash())$/;"	C
 createActivity	./src/activities.ts	/^export function createActivity(activity: ActivityType) {$/;"	C
 currentHour	./src/functions.ts	/^export function currentHour() {$/;"	f
 currentPage	./src/router.ts	/^export const currentPage = ref(normalizePageHash())$/;"	C
 date	./src/functions.ts	/^  const date = new Date()$/;"	C	function:generatePeriodSelectOptions
 deleteAndResetActivity	./src/components/ActivityItem.vue	/^function deleteAndResetActivity(activity) {$/;"	f
+document	./src/timeline-items.ts	/^  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el$/;"	C	function:scrollToHour
+el	./src/timeline-items.ts	/^  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el$/;"	C	function:scrollToHour
 export	./src/activities.ts	/^export function createActivity(activity: ActivityType) {$/;"	C
 export	./src/constants.ts	/^export const BUTTON_TYPE_PRIMARY = 'primary'$/;"	C
 export	./src/constants.ts	/^export const MILLISECONDS_IN_SECOND = 1000$/;"	C
 export	./src/functions.ts	/^export function formatSeconds(seconds: number) {$/;"	C	function:generatePeriodSelectOptions
+export	./src/router.ts	/^export const currentPage = ref(normalizePageHash())$/;"	C
 formatSeconds	./src/functions.ts	/^export function formatSeconds(seconds: number) {$/;"	C	function:generatePeriodSelectOptions
 generateActivities	./src/activities.ts	/^function generateActivities() {$/;"	f
 generateActivitySelectOptions	./src/activities.ts	/^function generateActivitySelectOptions(activities: ActivityType[]) {$/;"	f
@@ -116,14 +122,15 @@ generatePeriodSelectOptions	./src/functions.ts	/^export function generatePeriodS
 generatePeriodSelectOptionsLabel	./src/functions.ts	/^function generatePeriodSelectOptionsLabel(periodsInMinutes: number) {$/;"	f
 generateTimeLineItems	./src/timeline-items.ts	/^function generateTimeLineItems() {$/;"	f
 getTotalActivitySeconds	./src/timeline-items.ts	/^export function getTotalActivitySeconds(activity: ActivityType) {$/;"	f
+handleClick	./src/components/TheLogo.vue	/^function handleClick() {$/;"	f
 hasActivity	./src/timeline-items.ts	/^function hasActivity(timelineItem: TimelineItemType, activity: ActivityType) {$/;"	f
+hour	./src/timeline-items.ts	/^  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el$/;"	C	function:scrollToHour
 hours	./src/functions.ts	/^  const hours = Math.floor(periodsInMinutes \/ MINUTES_IN_HOUR)$/;"	C	function:generatePeriodSelectOptionsLabel
 icon	./src/constants.ts	/^  { page: PAGE_ACTIVITIES, icon: ListBulletIcon },$/;"	C
 icon	./src/constants.ts	/^  { page: PAGE_PROGRESS, icon: ChartBarIcon },$/;"	C
 icon	./src/constants.ts	/^  { page: PAGE_TIMELINE, icon: ClockIcon },$/;"	C
 id	./src/functions.ts	/^export function id() {$/;"	f
-import	./src/App.vue	/^import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from '.\/constants'$/;"	p
-import	./src/App.vue	/^import { currentPage, timelineRef } from '@\/router'$/;"	p
+import	./src/App.vue	/^import { routes, currentPage } from '@\/router'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { BUTTON_TYPE_DANGER, PERIOD_SELECT_OPTIONS } from '@\/constants'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { TrashIcon } from '@heroicons\/vue\/24\/outline'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { deleteActivity, updateActivity } from '@\/activities'$/;"	p
@@ -152,7 +159,8 @@ import	./src/components/TheHeaderProgress.vue	/^import { CheckCircleIcon } from 
 import	./src/components/TheHeaderProgress.vue	/^import { PAGE_PROGRESS } from '@\/constants'$/;"	p
 import	./src/components/TheHeaderProgress.vue	/^import { navigate } from '@\/router'$/;"	p
 import	./src/components/TheLogo.vue	/^import { PAGE_TIMELINE } from '@\/constants'$/;"	p
-import	./src/components/TheLogo.vue	/^import { navigate } from '@\/router'$/;"	p
+import	./src/components/TheLogo.vue	/^import { currentPage, navigate } from '@\/router'$/;"	p
+import	./src/components/TheLogo.vue	/^import { scrollToCurrentHour } from '@\/timeline-items'$/;"	p
 import	./src/components/TheNav.vue	/^import { NAV_ITEMS } from '@\/constants'$/;"	p
 import	./src/components/TimelineHour.vue	/^import { currentHour } from '@\/functions'$/;"	p
 import	./src/components/TimelineHour.vue	/^import { isHourValid } from '@\/validators'$/;"	p
@@ -167,11 +175,8 @@ import	./src/components/TimelineStopwatch.vue	/^import { updateTimelineItem } fr
 import	./src/components/TimelineStopwatch.vue	/^import {$/;"	p
 import	./src/pages/TheActivities.vue	/^import { activities } from '@\/activities'$/;"	p
 import	./src/pages/TheActivities.vue	/^import { isActivityValid, isNumber } from '@\/validators'$/;"	p
-import	./src/pages/TheTimeline.vue	/^import { MIDNIGHT_HOUR, PAGE_TIMELINE } from '@\/constants'$/;"	p
-import	./src/pages/TheTimeline.vue	/^import { currentHour } from '@\/functions'$/;"	p
-import	./src/pages/TheTimeline.vue	/^import { currentPage } from '@\/router'$/;"	p
-import	./src/pages/TheTimeline.vue	/^import { ref, watchPostEffect, nextTick } from 'vue'$/;"	p
-import	./src/pages/TheTimeline.vue	/^import { timelineItems } from '@\/timeline-items'$/;"	p
+import	./src/pages/TheTimeline.vue	/^import { onActivated } from 'vue'$/;"	p
+import	./src/pages/TheTimeline.vue	/^import {$/;"	p
 isBetween	./src/validators.ts	/^function isBetween(value: number, start: number, end: number) {$/;"	f
 isButtonTypeValid	./src/validators.ts	/^export function isButtonTypeValid(type: string) {$/;"	f
 isHourValid	./src/validators.ts	/^export function isHourValid(hour: number) {$/;"	f
@@ -202,11 +207,12 @@ ref="`#${PAGE_PROGRESS}`"	./src/components/TheHeaderProgress.vue	/^        :href
 ref="`#${PAGE_TIMELINE}`"	./src/components/TheLogo.vue	/^        :href="`#${PAGE_TIMELINE}`"$/;"	c	template:<template>
 ref="`#${navItem.page}`"	./src/components/NavItem.vue	/^    <a :href="`#${navItem.page}`" :class="classes" @click="navigate(navItem.page)">$/;"	c	template:<template>
 ref="timelineItemRefs"	./src/pages/TheTimeline.vue	/^                ref="timelineItemRefs"$/;"	c	template:<template>
-ref="timelineRef"	./src/App.vue	/^            ref="timelineRef"$/;"	c	template:<template>
 reset	./src/components/TimelineStopwatch.vue	/^function reset() {$/;"	f
 resetTimelineItemActivities	./src/timeline-items.ts	/^export function resetTimelineItemActivities(activity: ActivityType) {$/;"	f
 return	./src/functions.ts	/^  return periodsInMinutes.map((periodsInMinutes) => ({$/;"	C	function:generatePeriodSelectOptions
-scrollToHour	./src/pages/TheTimeline.vue	/^function scrollToHour(hour: number | null = null, isSmooth: boolean = true) {$/;"	f
+routes	./src/router.ts	/^export const routes = {$/;"	C
+scrollToCurrentHour	./src/timeline-items.ts	/^export function scrollToCurrentHour(isSmooth: boolean = true) {$/;"	f
+scrollToHour	./src/timeline-items.ts	/^export function scrollToHour(hour: number | null, isSmooth: boolean = true) {$/;"	f
 select	./src/components/BaseSelect.vue	/^function select(value) {$/;"	f
 setSecondsToComplete	./src/pages/TheActivities.vue	/^function setSecondsToComplete(activity: ActivityType, secondsToComplete: number) {$/;"	f
 start	./src/components/TimelineStopwatch.vue	/^function start() {$/;"	f
@@ -228,8 +234,8 @@ style	./src/components/TimelineStopwatch.vue	/^<style scoped><\/style>$/;"	s
 style	./src/pages/TheActivities.vue	/^<style scoped><\/style>$/;"	s
 style	./src/pages/TheProgress.vue	/^<style scoped><\/style>$/;"	s
 style	./src/pages/TheTimeline.vue	/^<style scoped><\/style>$/;"	s
+timelineItemRefs	./src/timeline-items.ts	/^export const timelineItemRefs = ref<TimelineItemType[]>([])$/;"	C
 timelineItems	./src/timeline-items.ts	/^export const timelineItems = ref<TimelineItemType[]>(generateTimeLineItems())$/;"	C
-timelineRef	./src/router.ts	/^export const timelineRef = ref()$/;"	C
 updateActivity	./src/activities.ts	/^export function updateActivity(activity: ActivityType, fields: { secondsToComplete: number }) {$/;"	f
 updateTimelineItem	./src/timeline-items.ts	/^export function updateTimelineItem(timelineItem: TimelineItemType, fields: FieldsType) {$/;"	f
 utc	./src/functions.ts	/^  const utc = date.toUTCString()$/;"	C	function:generatePeriodSelectOptions
@@ -241,9 +247,6 @@ v-if="activities?.length > 0"	./src/pages/TheActivities.vue	/^    <ul v-if="acti
 v-if="activity.secondsToComplete"	./src/components/ActivityItem.vue	/^                v-if="activity.secondsToComplete"$/;"	c	template:<template>
 v-if="false"	./src/components/TheHeaderProgress.vue	/^            v-if="false"$/;"	c	template:<template>
 v-if="isRunning"	./src/components/TimelineStopwatch.vue	/^    <BaseButton v-if="isRunning" :type="BUTTON_TYPE_WARNING" @click="stop">$/;"	c	template:<template>
-v-show="currentPage === PAGE_ACTIVITIES"	./src/App.vue	/^        <TheActivities v-show="currentPage === PAGE_ACTIVITIES" \/>$/;"	c	template:<template>
-v-show="currentPage === PAGE_PROGRESS"	./src/App.vue	/^        <TheProgress v-show="currentPage === PAGE_PROGRESS" \/>$/;"	c	template:<template>
-v-show="currentPage === PAGE_TIMELINE"	./src/App.vue	/^            v-show="currentPage === PAGE_TIMELINE"$/;"	c	template:<template>
 validateActivities	./src/validators.ts	/^export function validateActivities(activities: ActivityType[]) {$/;"	f
 validateSelectOptions	./src/validators.ts	/^export function validateSelectOptions(options: SelectOptionsType[]) {$/;"	f
 validateTimelineItems	./src/validators.ts	/^export function validateTimelineItems(timelineItems: TimelineItemType[]) {$/;"	f

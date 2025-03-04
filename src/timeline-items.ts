@@ -68,8 +68,11 @@ export function getTotalActivitySeconds(activity: ActivityType) {
     )
 }
 
-export function scrollToHour(hour: number | null = null, isSmooth: boolean = true) {
-  hour ??= currentHour()
+export function scrollToCurrentHour(isSmooth: boolean = false) {
+  scrollToHour(currentHour(), isSmooth)
+}
+
+export function scrollToHour(hour: number | null, isSmooth: boolean = true) {
   // опция для выбора плавной или обычной прокрутки прокрутки
   const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el
   el.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'instant' })
