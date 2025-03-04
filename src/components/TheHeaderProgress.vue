@@ -5,11 +5,14 @@
         class="text-sm"
     >
         <div
-            v-if="false"
+            v-if="true"
             class="flex items-center gap-1"
         >
             Day complete!
-            <CheckCircleIcon class="h-7 text-green-500" />
+            <BaseIcon
+                :name="ICON_CHECK_CIRCLE"
+                classes="h-7 text-green-500"
+            />
         </div>
         <div
             v-else
@@ -22,9 +25,10 @@
 </template>
 
 <script setup lang="ts">
-import { CheckCircleIcon } from '@heroicons/vue/24/outline'
+import BaseIcon from '@/components/BaseIcon.vue'
 import { PAGE_PROGRESS } from '@/constants'
 import { navigate } from '@/router'
+import { ICON_CHECK_CIRCLE } from '@/icons'
 </script>
 
 <style scoped></style>

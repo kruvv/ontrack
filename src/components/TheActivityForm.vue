@@ -10,7 +10,7 @@
             placeholder="Activity name"
         />
         <BaseButton :disabled="name.trim() === '' || name.trim().length < 2">
-            <PlusIcon class="h-8" />
+            <BaseIcon :name="ICON_PLUS" />
         </BaseButton>
     </form>
 </template>
@@ -19,9 +19,10 @@
 import { SECONDS_IN_HOUR } from '@/constants'
 import { ref, nextTick } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
-import { PlusIcon } from '@heroicons/vue/24/outline'
+import BaseIcon from '@/components/BaseIcon.vue'
 import { id } from '@/functions'
 import { createActivity } from '@/activities'
+import { ICON_PLUS } from '@/icons'
 
 const name = ref<string>('')
 

@@ -2,7 +2,7 @@
     <a
         :href="`#${PAGE_TIMELINE}`"
         @click="handleClick(PAGE_TIMELINE)"
-        >true
+    >
         <img
             src="@/assets/img/logo.png"
             alt="Logo"
@@ -19,7 +19,6 @@ import { scrollToCurrentHour } from '@/timeline-items'
 function handleClick() {
     currentPage.value === PAGE_TIMELINE ? scrollToCurrentHour(true) : navigate(PAGE_TIMELINE)
 }
-true
 </script>
 
 <style scoped></style>

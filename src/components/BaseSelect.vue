@@ -4,7 +4,7 @@
             :type="BUTTON_TYPE_NEUTRAL"
             @click="select(null)"
         >
-            <XMarkIcon class="h-8" />
+            <BaseIcon :name="ICON_X_MARK" />
         </BaseButton>
         <select
             class="w-full truncate rounded bg-gray-100 py-1 px-2 text-2xl"
@@ -33,11 +33,12 @@
 import { computed } from 'vue'
 import type { PropType } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
+import BaseIcon from '@/components/BaseIcon.vue'
 import { validateSelectOptions, isUndefinedOrNull, isSelectValueValid } from '@/validators'
 import type { SelectOptionsType } from '@/validators'
 import { normalizeSelectValue } from '@/functions'
 import { BUTTON_TYPE_NEUTRAL } from '@/constants'
+import { ICON_X_MARK } from '@/icons'
 
 const emit = defineEmits({
     select: isSelectValueValid,
