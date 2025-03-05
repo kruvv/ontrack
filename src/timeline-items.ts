@@ -32,22 +32,6 @@ export function updateTimelineItem(timelineItem: TimelineItemType, fields: Field
   return Object.assign(timelineItem, fields)
 }
 
-// TODO: Delete it
-// export function setTimelineItemActivity(
-//   timelineItem: TimelineItemType,
-//   activityId: string | null,
-// ): void {
-//   // debugger debugger
-//   timelineItem.activityId = activityId
-// }
-//
-// export function updateTimelineItemActivitySeconds(
-//   timelineItem: TimelineItemType,
-//   activitySeconds: number,
-// ): void {
-//   timelineItem.activitySeconds = activitySeconds
-// }
-
 export function resetTimelineItemActivities(activity: ActivityType) {
   timelineItems.value
     .filter((timelineItem) => hasActivity(timelineItem, activity))
@@ -72,7 +56,7 @@ export function scrollToCurrentHour(isSmooth: boolean = false) {
   scrollToHour(currentHour(), isSmooth)
 }
 
-export function scrollToHour(hour: number | null, isSmooth: boolean = true) {
+export function scrollToHour(hour: number, isSmooth: boolean = true) {
   // опция для выбора плавной или обычной прокрутки прокрутки
   const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el
   el.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'instant' })

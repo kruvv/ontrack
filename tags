@@ -55,6 +55,7 @@
 <template>	./src/components/ActivityItem.vue	/^<template>$/;"	t
 <template>	./src/components/ActivitySecondsToComplete.vue	/^<template>$/;"	t
 <template>	./src/components/BaseButton.vue	/^<template>$/;"	t
+<template>	./src/components/BaseIcon.vue	/^<template>$/;"	t
 <template>	./src/components/BaseSelect.vue	/^<template>$/;"	t
 <template>	./src/components/NavItem.vue	/^<template>$/;"	t
 <template>	./src/components/TheActivitiesEmptyState.vue	/^<template>$/;"	t
@@ -82,7 +83,26 @@ BUTTON_TYPE_WARNING	./src/constants.ts	/^  BUTTON_TYPE_WARNING,$/;"	C
 BUTTON_TYPE_WARNING	./src/constants.ts	/^export const BUTTON_TYPE_WARNING = 'warning'$/;"	C
 FieldsType	./src/timeline-items.ts	/^type FieldsType = {$/;"	a
 HOURS_IN_DAY	./src/constants.ts	/^export const HOURS_IN_DAY = 24$/;"	C
-IconType	./src/constants.ts	/^type IconType = typeof ClockIcon | typeof ListBulletIcon | typeof ChartBarIcon$/;"	a
+ICONS	./src/icons.ts	/^export const ICONS = {$/;"	C
+ICON_ARROW_PATH	./src/icons.ts	/^  [ICON_ARROW_PATH]: ArrowPath,$/;"	C
+ICON_ARROW_PATH	./src/icons.ts	/^export const ICON_ARROW_PATH = 'ArrowPath'$/;"	C
+ICON_CHART_BAR	./src/icons.ts	/^  [ICON_CHART_BAR]: ChartBar,$/;"	C
+ICON_CHART_BAR	./src/icons.ts	/^export const ICON_CHART_BAR = 'ChartBar'$/;"	C
+ICON_CHECK_CIRCLE	./src/icons.ts	/^  [ICON_CHECK_CIRCLE]: CheckCircle,$/;"	C
+ICON_CHECK_CIRCLE	./src/icons.ts	/^export const ICON_CHECK_CIRCLE = 'CheckCircle'$/;"	C
+ICON_CLOCK	./src/icons.ts	/^export const ICON_CLOCK = 'Clock'$/;"	C
+ICON_LIST_BULLET	./src/icons.ts	/^  [ICON_LIST_BULLET]: ListBullet,$/;"	C
+ICON_LIST_BULLET	./src/icons.ts	/^export const ICON_LIST_BULLET = 'ListBullet'$/;"	C
+ICON_PAUSE	./src/icons.ts	/^  [ICON_PAUSE]: Pause,$/;"	C
+ICON_PAUSE	./src/icons.ts	/^export const ICON_PAUSE = 'Pause'$/;"	C
+ICON_PLAY	./src/icons.ts	/^  [ICON_PLAY]: Play,$/;"	C
+ICON_PLAY	./src/icons.ts	/^export const ICON_PLAY = 'Play'$/;"	C
+ICON_PLUS	./src/icons.ts	/^  [ICON_PLUS]: Plus,$/;"	C
+ICON_PLUS	./src/icons.ts	/^export const ICON_PLUS = 'Plus'$/;"	C
+ICON_TRASH	./src/icons.ts	/^  [ICON_TRASH]: Trash,$/;"	C
+ICON_TRASH	./src/icons.ts	/^export const ICON_TRASH = 'Trash'$/;"	C
+ICON_X_MARK	./src/icons.ts	/^  [ICON_X_MARK]: XMark,$/;"	C
+ICON_X_MARK	./src/icons.ts	/^export const ICON_X_MARK = 'XMark'$/;"	C
 MIDNIGHT_HOUR	./src/constants.ts	/^export const MIDNIGHT_HOUR = 0$/;"	C
 MILLISECONDS_IN_SECOND	./src/constants.ts	/^export const MILLISECONDS_IN_SECOND = 1000$/;"	C
 MINUTES_IN_HOUR	./src/constants.ts	/^export const MINUTES_IN_HOUR = 60$/;"	C
@@ -126,13 +146,13 @@ handleClick	./src/components/TheLogo.vue	/^function handleClick() {$/;"	f
 hasActivity	./src/timeline-items.ts	/^function hasActivity(timelineItem: TimelineItemType, activity: ActivityType) {$/;"	f
 hour	./src/timeline-items.ts	/^  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el$/;"	C	function:scrollToHour
 hours	./src/functions.ts	/^  const hours = Math.floor(periodsInMinutes \/ MINUTES_IN_HOUR)$/;"	C	function:generatePeriodSelectOptionsLabel
-icon	./src/constants.ts	/^  { page: PAGE_ACTIVITIES, icon: ListBulletIcon },$/;"	C
-icon	./src/constants.ts	/^  { page: PAGE_PROGRESS, icon: ChartBarIcon },$/;"	C
-icon	./src/constants.ts	/^  { page: PAGE_TIMELINE, icon: ClockIcon },$/;"	C
+icon	./src/constants.ts	/^  { page: PAGE_ACTIVITIES, icon: ICON_LIST_BULLET },$/;"	C
+icon	./src/constants.ts	/^  { page: PAGE_PROGRESS, icon: ICON_CHART_BAR },$/;"	C
+icon	./src/constants.ts	/^  { page: PAGE_TIMELINE, icon: ICON_CLOCK },$/;"	C
 id	./src/functions.ts	/^export function id() {$/;"	f
 import	./src/App.vue	/^import { routes, currentPage } from '@\/router'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { BUTTON_TYPE_DANGER, PERIOD_SELECT_OPTIONS } from '@\/constants'$/;"	p
-import	./src/components/ActivityItem.vue	/^import { TrashIcon } from '@heroicons\/vue\/24\/outline'$/;"	p
+import	./src/components/ActivityItem.vue	/^import { ICON_TRASH } from '@\/icons'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { deleteActivity, updateActivity } from '@\/activities'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { isActivityValid } from '@\/validators'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { resetTimelineItemActivities } from '@\/timeline-items'$/;"	p
@@ -142,20 +162,22 @@ import	./src/components/ActivitySecondsToComplete.vue	/^import { getTotalActivit
 import	./src/components/ActivitySecondsToComplete.vue	/^import { isActivityValid } from '@\/validators'$/;"	p
 import	./src/components/BaseButton.vue	/^import { isButtonTypeValid } from '@\/validators'$/;"	p
 import	./src/components/BaseButton.vue	/^import {$/;"	p
+import	./src/components/BaseIcon.vue	/^import { ICONS } from '@\/icons'$/;"	p
+import	./src/components/BaseIcon.vue	/^import { isIconValid, isNotEmptyString } from '@\/validators'$/;"	p
 import	./src/components/BaseSelect.vue	/^import { BUTTON_TYPE_NEUTRAL } from '@\/constants'$/;"	p
-import	./src/components/BaseSelect.vue	/^import { XMarkIcon } from '@heroicons\/vue\/24\/outline'$/;"	p
+import	./src/components/BaseSelect.vue	/^import { ICON_X_MARK } from '@\/icons'$/;"	p
 import	./src/components/BaseSelect.vue	/^import { computed } from 'vue'$/;"	p
 import	./src/components/BaseSelect.vue	/^import { normalizeSelectValue } from '@\/functions'$/;"	p
 import	./src/components/BaseSelect.vue	/^import { validateSelectOptions, isUndefinedOrNull, isSelectValueValid } from '@\/validators'$/;"	p
 import	./src/components/NavItem.vue	/^import { computed } from 'vue'$/;"	p
 import	./src/components/NavItem.vue	/^import { currentPage, navigate } from '@\/router.ts'$/;"	p
 import	./src/components/NavItem.vue	/^import { isNavItemValid } from '@\/validators.ts'$/;"	p
-import	./src/components/TheActivityForm.vue	/^import { PlusIcon } from '@heroicons\/vue\/24\/outline'$/;"	p
+import	./src/components/TheActivityForm.vue	/^import { ICON_PLUS } from '@\/icons'$/;"	p
 import	./src/components/TheActivityForm.vue	/^import { SECONDS_IN_HOUR } from '@\/constants'$/;"	p
 import	./src/components/TheActivityForm.vue	/^import { createActivity } from '@\/activities'$/;"	p
 import	./src/components/TheActivityForm.vue	/^import { id } from '@\/functions'$/;"	p
 import	./src/components/TheActivityForm.vue	/^import { ref, nextTick } from 'vue'$/;"	p
-import	./src/components/TheHeaderProgress.vue	/^import { CheckCircleIcon } from '@heroicons\/vue\/24\/outline'$/;"	p
+import	./src/components/TheHeaderProgress.vue	/^import { ICON_CHECK_CIRCLE } from '@\/icons'$/;"	p
 import	./src/components/TheHeaderProgress.vue	/^import { PAGE_PROGRESS } from '@\/constants'$/;"	p
 import	./src/components/TheHeaderProgress.vue	/^import { navigate } from '@\/router'$/;"	p
 import	./src/components/TheLogo.vue	/^import { PAGE_TIMELINE } from '@\/constants'$/;"	p
@@ -167,7 +189,7 @@ import	./src/components/TimelineHour.vue	/^import { isHourValid } from '@\/valid
 import	./src/components/TimelineItem.vue	/^import { activitySelectOptions } from '@\/activities'$/;"	p
 import	./src/components/TimelineItem.vue	/^import { isTimelineItemValid, isUndefined } from '@\/validators'$/;"	p
 import	./src/components/TimelineItem.vue	/^import { updateTimelineItem } from '@\/timeline-items'$/;"	p
-import	./src/components/TimelineStopwatch.vue	/^import { ArrowPathIcon, PauseIcon, PlayIcon } from '@heroicons\/vue\/24\/outline'$/;"	p
+import	./src/components/TimelineStopwatch.vue	/^import { ICON_PLAY, ICON_PAUSE, ICON_ARROW_PATH } from '@\/icons'$/;"	p
 import	./src/components/TimelineStopwatch.vue	/^import { formatSeconds, currentHour } from '@\/functions'$/;"	p
 import	./src/components/TimelineStopwatch.vue	/^import { isTimelineItemValid } from '@\/validators'$/;"	p
 import	./src/components/TimelineStopwatch.vue	/^import { ref, watch } from 'vue'$/;"	p
@@ -180,6 +202,7 @@ import	./src/pages/TheTimeline.vue	/^import {$/;"	p
 isBetween	./src/validators.ts	/^function isBetween(value: number, start: number, end: number) {$/;"	f
 isButtonTypeValid	./src/validators.ts	/^export function isButtonTypeValid(type: string) {$/;"	f
 isHourValid	./src/validators.ts	/^export function isHourValid(hour: number) {$/;"	f
+isIconValid	./src/validators.ts	/^export function isIconValid(icon: string) {$/;"	f
 isNavItemValid	./src/validators.ts	/^export function isNavItemValid(navItem: NavItemType) {$/;"	f
 isNull	./src/validators.ts	/^export function isNull(value: number | null) {$/;"	f
 isNumber	./src/validators.ts	/^export function isNumber(value: number) {$/;"	f
@@ -197,22 +220,22 @@ normalizePageHash	./src/router.ts	/^function normalizePageHash() {$/;"	f
 normalizeSelectValue	./src/functions.ts	/^export function normalizeSelectValue(value: number | string | null) {$/;"	f
 ns5d2975b30101	./src/assets/img/no_tracked_activities.svg	/^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" data-name="Layer 1" width="700.74679" height="597.77/;"	n	uri:http://www.w3.org/2000/svg
 nse201f1b60101	./src/assets/img/no_activities.svg	/^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" data-name="Layer 1" width="647.63626" height="632.17/;"	n	uri:http://www.w3.org/2000/svg
-page	./src/constants.ts	/^  { page: PAGE_ACTIVITIES, icon: ListBulletIcon },$/;"	C
-page	./src/constants.ts	/^  { page: PAGE_PROGRESS, icon: ChartBarIcon },$/;"	C
+page	./src/constants.ts	/^  { page: PAGE_ACTIVITIES, icon: ICON_LIST_BULLET },$/;"	C
+page	./src/constants.ts	/^  { page: PAGE_PROGRESS, icon: ICON_CHART_BAR },$/;"	C
 page	./src/router.ts	/^  const page = window.location.hash.slice(1)$/;"	C	function:normalizePageHash
 periodsInMinutes	./src/functions.ts	/^  const periodsInMinutes = [$/;"	C	function:generatePeriodSelectOptions
 periodsInMinutes	./src/functions.ts	/^  return periodsInMinutes.map((periodsInMinutes) => ({$/;"	C	function:generatePeriodSelectOptions
 ref="#"	./src/components/TimelineHour.vue	/^        href="#"$/;"	c	template:<template>
 ref="`#${PAGE_PROGRESS}`"	./src/components/TheHeaderProgress.vue	/^        :href="`#${PAGE_PROGRESS}`"$/;"	c	template:<template>
 ref="`#${PAGE_TIMELINE}`"	./src/components/TheLogo.vue	/^        :href="`#${PAGE_TIMELINE}`"$/;"	c	template:<template>
-ref="`#${navItem.page}`"	./src/components/NavItem.vue	/^    <a :href="`#${navItem.page}`" :class="classes" @click="navigate(navItem.page)">$/;"	c	template:<template>
+ref="`#${navItem.page}`"	./src/components/NavItem.vue	/^            :href="`#${navItem.page}`"$/;"	c	template:<template>
 ref="timelineItemRefs"	./src/pages/TheTimeline.vue	/^                ref="timelineItemRefs"$/;"	c	template:<template>
 reset	./src/components/TimelineStopwatch.vue	/^function reset() {$/;"	f
 resetTimelineItemActivities	./src/timeline-items.ts	/^export function resetTimelineItemActivities(activity: ActivityType) {$/;"	f
 return	./src/functions.ts	/^  return periodsInMinutes.map((periodsInMinutes) => ({$/;"	C	function:generatePeriodSelectOptions
 routes	./src/router.ts	/^export const routes = {$/;"	C
-scrollToCurrentHour	./src/timeline-items.ts	/^export function scrollToCurrentHour(isSmooth: boolean = true) {$/;"	f
-scrollToHour	./src/timeline-items.ts	/^export function scrollToHour(hour: number | null, isSmooth: boolean = true) {$/;"	f
+scrollToCurrentHour	./src/timeline-items.ts	/^export function scrollToCurrentHour(isSmooth: boolean = false) {$/;"	f
+scrollToHour	./src/timeline-items.ts	/^export function scrollToHour(hour: number, isSmooth: boolean = true) {$/;"	f
 select	./src/components/BaseSelect.vue	/^function select(value) {$/;"	f
 setSecondsToComplete	./src/pages/TheActivities.vue	/^function setSecondsToComplete(activity: ActivityType, secondsToComplete: number) {$/;"	f
 start	./src/components/TimelineStopwatch.vue	/^function start() {$/;"	f
@@ -220,6 +243,7 @@ stop	./src/components/TimelineStopwatch.vue	/^function stop() {$/;"	f
 style	./src/components/ActivityItem.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/ActivitySecondsToComplete.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/BaseButton.vue	/^<style lang="scss" scoped><\/style>$/;"	s
+style	./src/components/BaseIcon.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/BaseSelect.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/NavItem.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/TheActivitiesEmptyState.vue	/^<style scoped><\/style>$/;"	s
@@ -245,8 +269,8 @@ v-for="timelineItem in timelineItems"	./src/pages/TheTimeline.vue	/^            
 v-for="{ value, label } in options"	./src/components/BaseSelect.vue	/^                v-for="{ value, label } in options"$/;"	c	template:<template>
 v-if="activities?.length > 0"	./src/pages/TheActivities.vue	/^    <ul v-if="activities?.length > 0" class="divide-y grow">$/;"	c	template:<template>
 v-if="activity.secondsToComplete"	./src/components/ActivityItem.vue	/^                v-if="activity.secondsToComplete"$/;"	c	template:<template>
-v-if="false"	./src/components/TheHeaderProgress.vue	/^            v-if="false"$/;"	c	template:<template>
-v-if="isRunning"	./src/components/TimelineStopwatch.vue	/^    <BaseButton v-if="isRunning" :type="BUTTON_TYPE_WARNING" @click="stop">$/;"	c	template:<template>
+v-if="isRunning"	./src/components/TimelineStopwatch.vue	/^            v-if="isRunning"$/;"	c	template:<template>
+v-if="true"	./src/components/TheHeaderProgress.vue	/^            v-if="true"$/;"	c	template:<template>
 validateActivities	./src/validators.ts	/^export function validateActivities(activities: ActivityType[]) {$/;"	f
 validateSelectOptions	./src/validators.ts	/^export function validateSelectOptions(options: SelectOptionsType[]) {$/;"	f
 validateTimelineItems	./src/validators.ts	/^export function validateTimelineItems(timelineItems: TimelineItemType[]) {$/;"	f

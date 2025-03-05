@@ -4,7 +4,6 @@ import TheTimeline from '@/pages/TheTimeline.vue'
 import TheActivities from '@/pages/TheActivities.vue'
 import TheProgress from '@/pages/TheProgress.vue'
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants'
-import type { TimelineItemType, SelectOptionsType, ActivityType } from '@/validators.ts'
 
 export const routes = {
   [PAGE_TIMELINE]: TheTimeline,
