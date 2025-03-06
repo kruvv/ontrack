@@ -58,6 +58,7 @@
 <template>	./src/components/BaseIcon.vue	/^<template>$/;"	t
 <template>	./src/components/BaseSelect.vue	/^<template>$/;"	t
 <template>	./src/components/NavItem.vue	/^<template>$/;"	t
+<template>	./src/components/ProgressItem.vue	/^<template>$/;"	t
 <template>	./src/components/TheActivitiesEmptyState.vue	/^<template>$/;"	t
 <template>	./src/components/TheActivityForm.vue	/^<template>$/;"	t
 <template>	./src/components/TheHeader.vue	/^<template>$/;"	t
@@ -197,6 +198,7 @@ import	./src/components/TimelineStopwatch.vue	/^import { updateTimelineItem } fr
 import	./src/components/TimelineStopwatch.vue	/^import {$/;"	p
 import	./src/pages/TheActivities.vue	/^import { activities } from '@\/activities'$/;"	p
 import	./src/pages/TheActivities.vue	/^import { isActivityValid, isNumber } from '@\/validators'$/;"	p
+import	./src/pages/TheProgress.vue	/^import { ProgressItem } from '@\/components\/ProgressItem.vue'$/;"	p
 import	./src/pages/TheTimeline.vue	/^import { onActivated } from 'vue'$/;"	p
 import	./src/pages/TheTimeline.vue	/^import {$/;"	p
 isBetween	./src/validators.ts	/^function isBetween(value: number, start: number, end: number) {$/;"	f
@@ -246,6 +248,7 @@ style	./src/components/BaseButton.vue	/^<style lang="scss" scoped><\/style>$/;"	
 style	./src/components/BaseIcon.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/BaseSelect.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/NavItem.vue	/^<style scoped><\/style>$/;"	s
+style	./src/components/ProgressItem.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/TheActivitiesEmptyState.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/TheActivityForm.vue	/^<style scoped><\/style>$/;"	s
 style	./src/components/TheHeader.vue	/^<style scoped><\/style>$/;"	s

@@ -1,13 +1,14 @@
 import { ref, computed } from 'vue'
 import { id } from '@/functions'
 import type { SelectOptionsType, ActivityType } from '@/validators'
-import { SECONDS_IN_HOUR } from '@/constants'
+import { getTotalActivitySeconds } from '@/timeline-items'
+import { SECONDS_IN_HOUR, HUNDRED_PERCENT } from '@/constants'
 
 function generateActivities() {
   return ['Coding', 'Training', 'Reading'].map((name, hours) => ({
     id: id(),
     name,
-    secondsToComplete: hours * SECONDS_IN_HOUR,
+    secondsToComplete: 15 * 60, //hours * SECONDS_IN_HOUR,
   }))
 }
 
@@ -17,6 +18,10 @@ function generateActivitySelectOptions(activities: ActivityType[]) {
 }
 
 export const activities = ref<ActivityType[]>(generateActivities())
+
+export const trackedActivities = computed(() =>
+  activities.value.filter(({ secondsToComplete }) => secondsToComplete),
+)
 
 export const activitySelectOptions = computed<SelectOptionsType[]>(() =>
   generateActivitySelectOptions(activities.value),
@@ -32,4 +37,10 @@ export function createActivity(activity: ActivityType) {
 
 export function updateActivity(activity: ActivityType, fields: { secondsToComplete: number }) {
   return Object.assign(activity, fields)
+}
+
+export function getActivityProgress(activity: ActivityType) {
+  return Math.floor(
+    (getTotalActivitySeconds(activity) * HUNDRED_PERCENT) / activity.secondsToComplete,
+  )
 }
