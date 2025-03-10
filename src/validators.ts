@@ -90,7 +90,7 @@ export function isActivityValid({ id, name, secondsToComplete }: ActivityType) {
   )
 }
 
-export function isNotEmptyString(value: string) {
+function isNotEmptyString(value: string) {
   return isString(value) && value.length > 0
 }
 

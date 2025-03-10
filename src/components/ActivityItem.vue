@@ -17,7 +17,7 @@
                 :options="PERIOD_SELECT_OPTIONS"
                 @select="updateActivity(activity, { secondsToComplete: $event || 0 })"
             />
-            <ActivitySecondsToComplete
+            <RemainingActivitySeconds
                 v-if="activity.secondsToComplete"
                 :activity="activity"
             />
@@ -31,11 +31,11 @@ import { BUTTON_TYPE_DANGER, PERIOD_SELECT_OPTIONS } from '@/constants'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseButton from '@/components/BaseButton.vue'
-import ActivitySecondsToComplete from '@/components/ActivitySecondsToComplete.vue'
+import RemainingActivitySeconds from '@/components/RemainingActivitySeconds.vue'
 import { isActivityValid } from '@/validators'
 import type { ActivityType } from '@/validators'
 import { deleteActivity, updateActivity } from '@/activities'
-import { resetTimelineItemActivities } from '@/timeline-items'
+import { timelineItems, resetTimelineItemActivities } from '@/timeline-items'
 import { ICON_TRASH } from '@/icons'
 
 defineProps({
@@ -47,7 +47,7 @@ defineProps({
 })
 
 function deleteAndResetActivity(activity) {
-    resetTimelineItemActivities(activity)
+    resetTimelineItemActivities(timelineItems.value, activity)
     deleteActivity(activity)
 }
 </script>

@@ -11,7 +11,7 @@
             Day complete!
             <BaseIcon
                 :name="ICON_CHECK_CIRCLE"
-                classes="h-7 text-green-500"
+                class="h-7 text-green-500"
             />
         </div>
         <div

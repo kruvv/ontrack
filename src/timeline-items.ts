@@ -1,7 +1,6 @@
 import { ref } from 'vue'
 import type { ActivityType, TimelineItemType } from '@/validators'
 import { HOURS_IN_DAY, MIDNIGHT_HOUR } from '@/constants'
-import { activities } from '@/activities'
 import { currentHour } from '@/functions'
 
 export const timelineItemRefs = ref<TimelineItemType[]>([])
@@ -20,8 +19,8 @@ function generateTimeLineItems() {
 
 export const timelineItems = ref<TimelineItemType[]>(generateTimeLineItems())
 
-function hasActivity(timelineItem: TimelineItemType, activity: ActivityType) {
-  return timelineItem.activityId === activity.id
+function filterTimelineItemsByActivity(timelineItems: TimelineItemType[], { id }: ActivityType) {
+  return timelineItems.filter(({ activityId }) => activityId === id)
 }
 
 type FieldsType = {
@@ -32,24 +31,25 @@ export function updateTimelineItem(timelineItem: TimelineItemType, fields: Field
   return Object.assign(timelineItem, fields)
 }
 
-export function resetTimelineItemActivities(activity: ActivityType) {
-  timelineItems.value
-    .filter((timelineItem) => hasActivity(timelineItem, activity))
-    .forEach((timelineItem) =>
-      updateTimelineItem(timelineItem, {
-        activityId: null,
-        activitySeconds: 0,
-      }),
-    )
+export function resetTimelineItemActivities(
+  timelineItems: TimelineItemType[],
+  activity: ActivityType,
+) {
+  filterTimelineItemsByActivity(timelineItems, activity).forEach((timelineItem) =>
+    updateTimelineItem(timelineItem, {
+      activityId: null,
+      activitySeconds: 0,
+    }),
+  )
 }
 
-export function getTotalActivitySeconds(activity: ActivityType) {
-  return timelineItems.value
-    .filter((timelineItem) => hasActivity(timelineItem, activity))
-    .reduce(
-      (totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds),
-      0,
-    )
+export function calculateTrackedActivitySeconds(
+  timelineItems: TimelineItemType[],
+  activity: ActivityType,
+) {
+  return filterTimelineItemsByActivity(timelineItems, activity)
+    .map(({ activitySeconds }) => activitySeconds)
+    .reduce((total, seconds) => Math.round(total + seconds), 0)
 }
 
 export function scrollToCurrentHour(isSmooth: boolean = false) {
