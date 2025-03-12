@@ -3,14 +3,14 @@
         <div class="truncate text-xl">{{ activity.name }}</div>
         <div class="flex h-5 overflow-hidden rounded bg-neutral-200">
             <div
-                :class="colorClass"
-                :style="`width: ${percentage}%`"
+                :class="['transition-all', colorClass]"
+                :style="{ width: `${Math.min(percentage, HUNDRED_PERCENT)}%` }"
             ></div>
         </div>
         <div class="flex justify-between font-mono text-sm">
             <span>{{ percentage }}%</span
             ><span
-                >{{ formatSeconds(trackedSeconds) }}
+                >{{ formatSeconds(trackedActivitySeconds) }}
                 /
                 {{ formatSeconds(activity.secondsToComplete) }}</span
             >
@@ -23,6 +23,7 @@ import type { PropType } from 'vue'
 import { isActivityValid, type ActivityType } from '@/validators'
 import { formatSeconds } from '@/functions'
 import { useProgress } from '@/composables/progress'
+import { HUNDRED_PERCENT } from '@/constants'
 
 const props = defineProps({
     activity: {
@@ -32,7 +33,7 @@ const props = defineProps({
     },
 })
 
-const { colorClass, percentage, trackedSeconds } = useProgress(props.activity)
+const { colorClass, percentage, trackedActivitySeconds } = useProgress(props.activity)
 </script>
 
 <style scoped></style>

@@ -3,6 +3,12 @@ import { id } from '@/functions'
 import type { SelectOptionsType, ActivityType } from '@/validators'
 import { SECONDS_IN_HOUR, HUNDRED_PERCENT } from '@/constants'
 
+const totalActivitySecondsToComplete = computed(() => {
+  return trackedActivities.value
+    .map(({ secondsToComplete }) => secondsToComplete)
+    .reduce((total, seconds) => total + seconds, 0)
+})
+
 function generateActivities() {
   return ['Coding', 'Training', 'Reading'].map((name, hours) => ({
     id: id(),
@@ -43,4 +49,10 @@ export function calculateActivityCompletionPercentage(
   trackedSeconds: number,
 ) {
   return Math.floor((trackedSeconds * HUNDRED_PERCENT) / secondsToComplete)
+}
+
+export function calculateCompletionPercentage(totalTrackedSeconds: number) {
+  return Math.floor(
+    (totalTrackedSeconds * HUNDRED_PERCENT) / totalActivitySecondsToComplete.value,
+  )
 }
