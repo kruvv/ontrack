@@ -9,10 +9,6 @@ import {
 import type { ActivityType, TimelineItemType } from '@/validators'
 import { isNull } from '@/validators'
 
-export function currentHour() {
-  return new Date().getHours()
-}
-
 export function normalizeSelectValue(value: number | string | null) {
   //TODO:  Странная логика валидации
   // if (value === null || typeof value === 'number') return value

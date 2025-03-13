@@ -1,6 +1,5 @@
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { MILLISECONDS_IN_SECOND } from '@/constants.ts'
-import type { TimelineItemType } from '@/validators'
 
 export function useStopwatch(initialSeconds: number) {
   const seconds = ref(initialSeconds)
