@@ -1,6 +1,7 @@
 import { ICON_CLOCK, ICON_LIST_BULLET, ICON_CHART_BAR } from '@/icons'
 import { generatePeriodSelectOptions } from '@/functions'
 
+export const APP_NAME = 'ontrack'
 // Типизация иконок
 //type IconType = typeof ClockIcon | typeof ListBulletIcon | typeof ChartBarIcon
 export type NavItemType = {

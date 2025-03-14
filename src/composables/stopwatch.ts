@@ -4,7 +4,7 @@ import { MILLISECONDS_IN_SECOND } from '@/constants.ts'
 export function useStopwatch(initialSeconds: number) {
   const seconds = ref(initialSeconds)
   const isRunning = ref<boolean | number>(false)
-  const temp = 120
+  const temp = 1
 
   function start() {
     isRunning.value = setInterval(() => {

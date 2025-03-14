@@ -11,6 +11,7 @@ export type TimelineItemType = {
   hour: number
   activityId: string | null
   activitySeconds: number
+  isActive: boolean
 }
 
 export type ActivityType = {

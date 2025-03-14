@@ -1,22 +1,37 @@
 import { ref } from 'vue'
 import type { ActivityType, TimelineItemType } from '@/validators'
-import { HOURS_IN_DAY, MIDNIGHT_HOUR } from '@/constants'
+import { HOURS_IN_DAY, MIDNIGHT_HOUR, MILLISECONDS_IN_SECOND } from '@/constants'
 import { now } from '@/time'
-// import { activities } from '@/activities'
 
 export const timelineItemRefs = ref([])
+
+let timelineItemTimer: number | null = null
+
+export function startTimelineItemTimer(activeTimelineItem) {
+  timelineItemTimer = setInterval(() => {
+    updateTimelineItem(activeTimelineItem, {
+      activitySeconds: activeTimelineItem?.activitySeconds + 1,
+    })
+  }, MILLISECONDS_IN_SECOND)
+}
+
+export function stopTimelineItemTimer() {
+  if (typeof timelineItemTimer === 'number') {
+    clearInterval(timelineItemTimer)
+  }
+}
+
+export function findActiveTimelineItem() {
+  return timelineItems.value.find(({ isActive }) => isActive)
+}
 
 // Герерация часов каждый день
 function generateTimeLineItems() {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
     hour,
-    activityId: null /*[1, 2, 3, 4, 5].includes(hour)
-      ? activities.value[hour % 3].id
-      : null,*/,
-    activitySeconds: 0, //[1, 2, 3, 4, 5].includes(hour) ? hour * 600 : 0,
-
-    // activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
-    //    activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR,
+    activityId: null,
+    activitySeconds: 0,
+    isActive: false,
   }))
 }
 

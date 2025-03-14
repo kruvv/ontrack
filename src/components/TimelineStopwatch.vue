@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { watchEffect, type PropType } from 'vue'
+import { watch, watchEffect, type PropType, onMounted } from 'vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { BUTTON_TYPE_DANGER, BUTTON_TYPE_WARNING, BUTTON_TYPE_SUCCESS } from '@/constants'
@@ -48,6 +48,18 @@ watchEffect(() =>
     activitySeconds: seconds.value,
   }),
 )
+
+onMounted(() => {
+  if (props.timelineItem.isActive) {
+    start()
+  }
+})
+
+watch(isRunning, () => {
+  updateTimelineItem(props.timelineItem, {
+    isActive: Boolean(isRunning.value),
+  })
+})
 </script>
 
 <style scoped></style>
