@@ -158,7 +158,6 @@ export	./src/router.ts	/^export const currentPage = ref(normalizePageHash())$/;"
 filterTimelineItemsByActivity	./src/timeline-items.ts	/^function filterTimelineItemsByActivity(timelineItems: TimelineItemType[], { id }: ActivityType) /;"	f
 findActiveTimelineItem	./src/timeline-items.ts	/^export function findActiveTimelineItem() {$/;"	f
 formatSecondsWithSign	./src/functions.ts	/^export function formatSecondsWithSign(seconds: number) {$/;"	C	function:generatePeriodSelectOptions
-generateActivitySelectOptions	./src/activities.ts	/^function generateActivitySelectOptions(activities: ActivityType[]) {$/;"	f
 generatePeriodSelectOptions	./src/functions.ts	/^export function generatePeriodSelectOptions() {$/;"	f
 generatePeriodSelectOptionsLabel	./src/functions.ts	/^function generatePeriodSelectOptionsLabel(periodsInMinutes: number) {$/;"	f
 generateTimeLineItems	./src/timeline-items.ts	/^function generateTimeLineItems() {$/;"	f

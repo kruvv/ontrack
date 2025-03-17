@@ -1,22 +1,14 @@
 import '@/assets/main.css'
 
 import { createApp } from 'vue'
-import { loadState, saveState } from '@/storage'
+import { syncState } from '@/storage'
 import App from '@/App.vue'
-import { findActiveTimelineItem, startTimelineItemTimer } from './timeline-items'
 
-loadState()
-
-const activeTimelineItem = findActiveTimelineItem()
-
-if (activeTimelineItem) {
-  startTimelineItemTimer(activeTimelineItem)
-}
+syncState()
 
 // Слушаем событие доступности вкладки Timeline
 document.addEventListener('visibilitychange', () => {
-  // eslint-disable-next-line
-  document.visibilityState === 'visible' ? loadState() : saveState()
+  syncState(document.visibilityState === 'visible')
 })
 
 createApp(App).mount('#app')

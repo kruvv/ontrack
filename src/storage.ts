@@ -1,8 +1,21 @@
 import { APP_NAME } from '@/constants'
-import { today, isToday, endOfHour, toSeconds } from './time'
-import { timelineItems } from '@/timeline-items'
+import { today, isToday, endOfHour, toSeconds } from '@/time'
+import { activeTimelineItem, resetTimelineItems, timelineItems } from '@/timeline-items'
 import { activities } from '@/activities'
 import type { TimelineItemType } from './validators'
+import { startTimelineItemTimer, stopTimelineItemTimer } from './timeline-item-timer'
+
+export function syncState(shouldLoad = true) {
+  //eslint-disable-next-line
+  shouldLoad ? loadState() : saveState()
+
+  if (activeTimelineItem.value) {
+    //eslint-disable-next-line
+    shouldLoad
+      ? startTimelineItemTimer(activeTimelineItem.value)
+      : stopTimelineItemTimer(activeTimelineItem.value)
+  }
+}
 
 // Загружает состояние из localStorage
 export function loadState() {
@@ -13,9 +26,16 @@ export function loadState() {
 
   const lastActiveAt = new Date(state.lastActiveAt)
 
-  timelineItems.value = isToday(lastActiveAt)
-    ? syncIdleSeconds(state.timelineItems, lastActiveAt)
-    : timelineItems.value
+  timelineItems.value = state.timelineItems ?? timelineItems.value
+
+  if (activeTimelineItem.value && isToday(lastActiveAt)) {
+    timelineItems.value = syncIdleSeconds(state.timelineItems, lastActiveAt)
+  } else if (state.timelineItems && !isToday(lastActiveAt)) {
+    timelineItems.value = resetTimelineItems(state.timelineItems)
+  }
+  // timelineItems.value = isToday(lastActiveAt)
+  //   ? syncIdleSeconds(state.timelineItems, lastActiveAt)
+  //   : timelineItems.value
 }
 
 // Сохраняет состояние при покидании вкладки Timeline

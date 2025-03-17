@@ -1,29 +1,14 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { ActivityType, TimelineItemType } from '@/validators'
-import { HOURS_IN_DAY, MIDNIGHT_HOUR, MILLISECONDS_IN_SECOND } from '@/constants'
+import { HOURS_IN_DAY, MIDNIGHT_HOUR } from '@/constants'
 import { now } from '@/time'
 
 export const timelineItemRefs = ref([])
+export const timelineItems = ref<TimelineItemType[]>(generateTimeLineItems())
 
-let timelineItemTimer: number | null = null
-
-export function startTimelineItemTimer(activeTimelineItem) {
-  timelineItemTimer = setInterval(() => {
-    updateTimelineItem(activeTimelineItem, {
-      activitySeconds: activeTimelineItem?.activitySeconds + 1,
-    })
-  }, MILLISECONDS_IN_SECOND)
-}
-
-export function stopTimelineItemTimer() {
-  if (typeof timelineItemTimer === 'number') {
-    clearInterval(timelineItemTimer)
-  }
-}
-
-export function findActiveTimelineItem() {
-  return timelineItems.value.find(({ isActive }) => isActive)
-}
+export const activeTimelineItem = computed(() =>
+  timelineItems.value.find(({ isActive }) => isActive),
+)
 
 // Герерация часов каждый день
 function generateTimeLineItems() {
@@ -35,14 +20,12 @@ function generateTimeLineItems() {
   }))
 }
 
-export const timelineItems = ref<TimelineItemType[]>(generateTimeLineItems())
-
 function filterTimelineItemsByActivity(timelineItems: TimelineItemType[], { id }: ActivityType) {
   return timelineItems.filter(({ activityId }) => activityId === id)
 }
 
 type FieldsType = {
-  [key: string]: string | number | null
+  [key: string]: boolean | number | null
 }
 
 export function updateTimelineItem(timelineItem: TimelineItemType, fields: FieldsType) {
@@ -69,6 +52,14 @@ export function calculateTrackedActivitySeconds(
   return filterTimelineItemsByActivity(timelineItems, activity)
     .map(({ activitySeconds }) => activitySeconds)
     .reduce((total, seconds) => Math.round(total + seconds), 0)
+}
+
+export function resetTimelineItems(timelineItems: TimelineItemType[]) {
+  return timelineItems.map((timelineItem) => ({
+    ...timelineItem,
+    activitySeconds: 0,
+    isActive: false,
+  }))
 }
 
 export function scrollToCurrentHour(isSmooth: boolean = false) {
