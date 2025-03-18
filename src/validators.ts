@@ -1,5 +1,4 @@
-import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES } from '@/constants'
-import type { NavItemType } from '@/constants'
+import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES, type NavItemType } from '@/constants'
 import { ICONS } from '@/icons'
 
 export type SelectOptionsType = {
@@ -20,12 +19,16 @@ export type ActivityType = {
   secondsToComplete: number
 }
 
-export function isNavItemValid(navItem: NavItemType) {
-  return NAV_ITEMS.includes(navItem)
-}
-
 export function isPageValid(page: string): boolean {
   return NAV_ITEMS.some((navItem) => navItem.page === page)
+}
+
+export function isIconValid(icon: string) {
+  return Object.keys(ICONS).includes(icon)
+}
+
+export function isNavItemValid(navItem: NavItemType) {
+  return NAV_ITEMS.includes(navItem)
 }
 
 export function isButtonTypeValid(type: string) {
@@ -34,6 +37,13 @@ export function isButtonTypeValid(type: string) {
 
 export function isTimelineItemValid({ hour }: TimelineItemType) {
   return isHourValid(hour)
+}
+
+export function isActivityValid({ id, name, secondsToComplete }: ActivityType) {
+  if (id === null) return true
+  return [isNotEmptyString(id), isNotEmptyString(name), isNumber(secondsToComplete)].every(
+    Boolean,
+  )
 }
 
 export function isHourValid(hour: number) {
@@ -52,23 +62,19 @@ function isSelectOptionValid({ value, label }: SelectOptionsType) {
   }
 }
 
-export function validateTimelineItems(timelineItems: TimelineItemType[]) {
-  return timelineItems.every(isTimelineItemValid)
+export function isNull(value: number | null) {
+  return value === null
 }
 
 export function isUndefinedOrNull(value: number) {
   return isUndefined(value) || isNull(value)
 }
 
-export function isNumberOrNull(value: number | null) {
+function isNumberOrNull(value: number | null) {
   return typeof value === 'number' ? isNumber(value) : isNull(value)
 }
 
-export function isNull(value: number | null) {
-  return value === null
-}
-
-export function isUndefined(value: number | undefined) {
+function isUndefined(value: number | undefined) {
   return value === undefined
 }
 
@@ -84,25 +90,10 @@ function isBetween(value: number, start: number, end: number) {
   return value >= start && value <= end
 }
 
-export function isActivityValid({ id, name, secondsToComplete }: ActivityType) {
-  if (id === null) return true
-  return [isNotEmptyString(id), isNotEmptyString(name), isNumber(secondsToComplete)].every(
-    Boolean,
-  )
-}
-
 function isNotEmptyString(value: string) {
   return isString(value) && value.length > 0
 }
 
-export function validateActivities(activities: ActivityType[]) {
-  return activities.every(isActivityValid)
-}
-
 export function isSelectValueValid(value: string | number | null) {
   return typeof value === 'string' ? isNotEmptyString(value) : isNumberOrNull(value)
-}
-
-export function isIconValid(icon: string) {
-  return Object.keys(ICONS).includes(icon)
 }

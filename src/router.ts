@@ -6,23 +6,23 @@ import TheProgress from '@/pages/TheProgress.vue'
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants'
 
 export const routes = {
-  [PAGE_TIMELINE]: TheTimeline,
-  [PAGE_ACTIVITIES]: TheActivities,
-  [PAGE_PROGRESS]: TheProgress,
+    [PAGE_TIMELINE]: TheTimeline,
+    [PAGE_ACTIVITIES]: TheActivities,
+    [PAGE_PROGRESS]: TheProgress,
 }
 
 export const currentPage = ref(normalizePageHash())
 
 export function navigate(page: string) {
-  document.body.scrollIntoView()
+    document.body.scrollIntoView()
 
-  currentPage.value = page
+    currentPage.value = page
 }
 
 // Проверяем хеш в адресе страницы, если нужно нормализуем его к виду host/ontrack/#timeline
 function normalizePageHash() {
-  const page = window.location.hash.slice(1)
-  if (isPageValid(page)) return page
-  window.location.hash = PAGE_TIMELINE
-  return PAGE_TIMELINE
+    const page = window.location.hash.slice(1)
+    if (isPageValid(page)) return page
+    window.location.hash = PAGE_TIMELINE
+    return PAGE_TIMELINE
 }

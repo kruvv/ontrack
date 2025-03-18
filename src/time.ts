@@ -6,10 +6,19 @@ import {
   SECONDS_IN_HOUR,
 } from '@/constants'
 
+export const now = ref(today())
+const midnight = computed(() => new Date(now.value).setHours(0, 0, 0, 0))
+
+export const secondsSinceMidnightInPercentage = computed(
+  () => (HUNDRED_PERCENT * secondsSinceMidnight.value) / SECONDS_IN_DAY,
+)
+
+const secondsSinceMidnight = computed(
+  () => (now.value.valueOf() - midnight.value) / MILLISECONDS_IN_SECOND,
+)
+
 export function today() {
-  const today = new Date()
-  // today.setHours(0, 0)
-  return today
+  return new Date()
 }
 
 export function tomorrow() {
@@ -34,28 +43,6 @@ export function isToday(date: Date) {
   return date.toDateString() === today().toDateString()
 }
 
-export const now = ref(today())
-const midnight = computed(() => new Date(now.value).setHours(0, 0, 0, 0))
-
-export const secondsSinceMidnightInPercentage = computed(
-  () => (HUNDRED_PERCENT * secondsSinceMidnight.value) / SECONDS_IN_DAY,
-)
-
-const secondsSinceMidnight = computed(
-  () => (now.value.valueOf() - midnight.value) / MILLISECONDS_IN_SECOND,
-)
-
-let currentDayTimer: number | null = null
-
 export function startCurrentDateTimer() {
-  now.value = today()
-  currentDayTimer = setInterval(() => {
-    now.value = new Date(now.value.getTime() + MILLISECONDS_IN_SECOND)
-  }, MILLISECONDS_IN_SECOND)
-}
-
-export function stopCurrentDateTimer() {
-  if (typeof currentDayTimer === 'number') {
-    clearInterval(currentDayTimer)
-  }
+  setInterval(() => (now.value = today()), MILLISECONDS_IN_SECOND)
 }

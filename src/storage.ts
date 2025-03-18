@@ -1,9 +1,15 @@
 import { APP_NAME } from '@/constants'
-import { today, isToday, endOfHour, toSeconds } from '@/time'
-import { activeTimelineItem, resetTimelineItems, timelineItems } from '@/timeline-items'
-import { activities } from '@/activities'
-import type { TimelineItemType } from './validators'
+import { today } from '@/time'
+import { activeTimelineItem, initializeTimelineItems, timelineItems } from '@/timeline-items'
+import { activities, initializeActivities } from '@/activities'
 import { startTimelineItemTimer, stopTimelineItemTimer } from './timeline-item-timer'
+import type { ActivityType, TimelineItemType } from './validators'
+
+export type StateType = {
+  timelineItems: TimelineItemType[]
+  activities: ActivityType[]
+  lastActiveAt: string
+}
 
 export function syncState(shouldLoad = true) {
   //eslint-disable-next-line
@@ -11,35 +17,28 @@ export function syncState(shouldLoad = true) {
 
   if (activeTimelineItem.value) {
     //eslint-disable-next-line
-    shouldLoad
-      ? startTimelineItemTimer(activeTimelineItem.value)
-      : stopTimelineItemTimer(activeTimelineItem.value)
+    shouldLoad ? startTimelineItemTimer() : stopTimelineItemTimer()
   }
 }
 
-// Загружает состояние из localStorage
-export function loadState() {
-  const serialiazedState = localStorage.getItem(APP_NAME)
+// Загружает состояние из localStorage и производит инициализацию.
+function loadState() {
+  // Загрузка состояния из localStorage
+  const state = loadFromLocalStorage()
 
-  const state = serialiazedState ? JSON.parse(serialiazedState) : {}
-  activities.value = state.activities || activities.value
+  // initialize activities
+  initializeActivities(state)
 
-  const lastActiveAt = new Date(state.lastActiveAt)
+  //initialize timelineItems
+  initializeTimelineItems(state)
+}
 
-  timelineItems.value = state.timelineItems ?? timelineItems.value
-
-  if (activeTimelineItem.value && isToday(lastActiveAt)) {
-    timelineItems.value = syncIdleSeconds(state.timelineItems, lastActiveAt)
-  } else if (state.timelineItems && !isToday(lastActiveAt)) {
-    timelineItems.value = resetTimelineItems(state.timelineItems)
-  }
-  // timelineItems.value = isToday(lastActiveAt)
-  //   ? syncIdleSeconds(state.timelineItems, lastActiveAt)
-  //   : timelineItems.value
+function loadFromLocalStorage() {
+  return JSON.parse(localStorage.getItem(APP_NAME) ?? '{}')
 }
 
 // Сохраняет состояние при покидании вкладки Timeline
-export function saveState() {
+function saveState() {
   localStorage.setItem(
     APP_NAME,
     JSON.stringify({
@@ -48,19 +47,4 @@ export function saveState() {
       lastActiveAt: today(),
     }),
   )
-}
-
-function syncIdleSeconds(timelineItems: TimelineItemType[], lastActiveAt: Date) {
-  const activeTimelineItem = timelineItems.find(({ isActive }) => isActive)
-
-  if (activeTimelineItem) {
-    activeTimelineItem.activitySeconds += calculateIdleSeconds(lastActiveAt)
-  }
-  return timelineItems
-}
-
-function calculateIdleSeconds(lastActiveAt: Date) {
-  return lastActiveAt.getHours() === today().getHours()
-    ? toSeconds(today().valueOf() - lastActiveAt.valueOf())
-    : toSeconds(endOfHour(lastActiveAt).valueOf() - lastActiveAt.valueOf())
 }

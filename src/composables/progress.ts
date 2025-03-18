@@ -5,17 +5,17 @@ import { calculateActivityCompletionPercentage } from '@/activities'
 import type { ActivityType } from '@/validators'
 
 export function useProgress(activity: ActivityType) {
-  const colorClass = computed(() => getProgressColorClass(percentage.value))
-  const percentage = computed(() =>
-    calculateActivityCompletionPercentage(activity, trackedActivitySeconds.value),
-  )
+    const colorClass = computed(() => getProgressColorClass(percentage.value))
+    const percentage = computed(() =>
+        calculateActivityCompletionPercentage(activity, trackedActivitySeconds.value),
+    )
 
-  const trackedActivitySeconds = computed(() =>
-    calculateTrackedActivitySeconds(timelineItems.value, activity),
-  )
-  return {
-    percentage,
-    trackedActivitySeconds,
-    colorClass,
-  }
+    const trackedActivitySeconds = computed(() =>
+        calculateTrackedActivitySeconds(timelineItems.value, activity),
+    )
+    return {
+        percentage,
+        trackedActivitySeconds,
+        colorClass,
+    }
 }

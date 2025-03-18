@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
-import { id } from '@/functions'
 import type { SelectOptionsType, ActivityType } from '@/validators'
 import { HUNDRED_PERCENT } from '@/constants'
+import type { StateType } from '@/storage'
 
 const totalActivitySecondsToComplete = computed(() => {
   return trackedActivities.value
@@ -22,6 +22,10 @@ export const trackedActivities = computed(() =>
 export const activitySelectOptions = computed<SelectOptionsType[]>(() =>
   generateActivitySelectOptions(activities.value),
 )
+
+export function initializeActivities(state: StateType) {
+  activities.value = state.activities || []
+}
 
 export function deleteActivity(activity: ActivityType) {
   activities.value.splice(activities.value.indexOf(activity), 1)
