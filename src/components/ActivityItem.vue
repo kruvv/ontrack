@@ -3,22 +3,24 @@
         <div class="flex items-center gap-2">
             <BaseButton
                 :type="BUTTON_TYPE_DANGER"
-                @click="deleteAndResetActivity(activity)"
+                @click="deleteAndResetActivity(activity as ActivityType)"
             >
                 <BaseIcon :name="ICON_TRASH" />
             </BaseButton>
-            <span class="truncate text-xl">{{ activity.name }}</span>
+            <span class="truncate text-xl">{{ activity?.name }}</span>
         </div>
         <div class="flex gap-2">
             <BaseSelect
                 class="font-mono grow"
-                :selected="activity.secondsToComplete || null"
+                :selected="activity?.secondsToComplete || null"
                 placeholder="hh:mm"
                 :options="PERIOD_SELECT_OPTIONS"
-                @select="updateActivity(activity, { secondsToComplete: $event || 0 })"
+                @select="
+                    updateActivity(activity as ActivityType, { secondsToComplete: $event || 0 })
+                "
             />
             <RemainingActivitySeconds
-                v-if="activity.secondsToComplete"
+                v-if="activity?.secondsToComplete"
                 :activity="activity"
             />
         </div>
@@ -32,8 +34,7 @@ import BaseSelect from '@/components/BaseSelect.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import RemainingActivitySeconds from '@/components/RemainingActivitySeconds.vue'
-import { isActivityValid } from '@/validators'
-import type { ActivityType } from '@/validators'
+import { isActivityValid, type ActivityType } from '@/validators'
 import { deleteActivity, updateActivity } from '@/activities'
 import { timelineItems, resetTimelineItemActivities } from '@/timeline-items'
 import { ICON_TRASH } from '@/icons'
@@ -46,7 +47,7 @@ defineProps({
     },
 })
 
-function deleteAndResetActivity(activity) {
+function deleteAndResetActivity(activity: ActivityType) {
     resetTimelineItemActivities(timelineItems.value, activity)
     deleteActivity(activity)
 }

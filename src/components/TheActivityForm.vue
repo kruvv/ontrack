@@ -16,7 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import { SECONDS_IN_HOUR } from '@/constants'
 import { ref, nextTick } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
@@ -30,7 +29,7 @@ async function submit() {
     createActivity({
         id: id(),
         name: name.value.trim(),
-        secondsToComplete: 0 * SECONDS_IN_HOUR,
+        secondsToComplete: 0,
     })
 
     name.value = ''
