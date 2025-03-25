@@ -41,7 +41,6 @@ export type FieldsType = {
 }
 
 export function updateTimelineItem(timelineItem: TimelineItemType, fields: FieldsType) {
-    debugger
     return Object.assign(timelineItem, fields)
 }
 

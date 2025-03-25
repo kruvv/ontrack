@@ -5,14 +5,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type PropType } from 'vue'
 import { formatSecondsWithSign } from '@/functions'
 import { timelineItems, calculateTrackedActivitySeconds } from '@/timeline-items'
-import { isActivityValid } from '@/validators'
+import { isActivityValid, type ActivityType } from '@/validators'
 
 const props = defineProps({
     activity: {
-        type: Object,
+        type: Object as PropType<ActivityType>,
         required: true,
         validator: isActivityValid,
     },

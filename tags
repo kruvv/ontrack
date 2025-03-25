@@ -85,10 +85,10 @@ BUTTON_TYPE_SUCCESS	./src/constants.ts	/^    BUTTON_TYPE_SUCCESS,$/;"	C
 BUTTON_TYPE_SUCCESS	./src/constants.ts	/^export const BUTTON_TYPE_SUCCESS = 'success'$/;"	C
 BUTTON_TYPE_WARNING	./src/constants.ts	/^    BUTTON_TYPE_WARNING,$/;"	C
 BUTTON_TYPE_WARNING	./src/constants.ts	/^export const BUTTON_TYPE_WARNING = 'warning'$/;"	C
-FieldsType	./src/timeline-items.ts	/^type FieldsType = {$/;"	a
+FieldsType	./src/timeline-items.ts	/^export type FieldsType = {$/;"	a
 HOURS_IN_DAY	./src/constants.ts	/^export const HOURS_IN_DAY = 24$/;"	C
 HUNDRED_PERCENT	./src/constants.ts	/^export const HUNDRED_PERCENT = 100$/;"	C
-ICONS	./src/icons.ts	/^export const ICONS = {$/;"	C
+ICONS	./src/icons.ts	/^export const ICONS: Icons = {$/;"	C
 ICON_ARROW_PATH	./src/icons.ts	/^    [ICON_ARROW_PATH]: ArrowPath,$/;"	C
 ICON_ARROW_PATH	./src/icons.ts	/^export const ICON_ARROW_PATH = 'ArrowPath'$/;"	C
 ICON_CHART_BAR	./src/icons.ts	/^    [ICON_CHART_BAR]: ChartBar,$/;"	C
@@ -108,6 +108,8 @@ ICON_TRASH	./src/icons.ts	/^    [ICON_TRASH]: Trash,$/;"	C
 ICON_TRASH	./src/icons.ts	/^export const ICON_TRASH = 'Trash'$/;"	C
 ICON_X_MARK	./src/icons.ts	/^    [ICON_X_MARK]: XMark,$/;"	C
 ICON_X_MARK	./src/icons.ts	/^export const ICON_X_MARK = 'XMark'$/;"	C
+IconType	./src/icons.ts	/^type IconType =$/;"	a
+Icons	./src/icons.ts	/^type Icons = {$/;"	a
 LOW_PERCENT	./src/constants.ts	/^export const LOW_PERCENT = 33$/;"	C
 MEDIUM_PERCENT	./src/constants.ts	/^export const MEDIUM_PERCENT = 66$/;"	C
 MIDNIGHT_HOUR	./src/constants.ts	/^export const MIDNIGHT_HOUR = 0$/;"	C
@@ -117,17 +119,19 @@ NAV_ITEMS	./src/constants.ts	/^export const NAV_ITEMS: NavItemType[] = [$/;"	C
 NavItemType	./src/constants.ts	/^export type NavItemType = {$/;"	a
 NavItemType	./src/validators.ts	/^import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES, type NavItemType } from '@\/const/;"	a
 PAGE_ACTIVITIES	./src/constants.ts	/^export const PAGE_ACTIVITIES = 'activities'$/;"	C
-PAGE_ACTIVITIES	./src/router.ts	/^    [PAGE_ACTIVITIES]: TheActivities,$/;"	C
+PAGE_ACTIVITIES	./src/router.ts	/^  [PAGE_ACTIVITIES]: TheActivities,$/;"	C
 PAGE_PROGRESS	./src/constants.ts	/^export const PAGE_PROGRESS = 'progress'$/;"	C
-PAGE_PROGRESS	./src/router.ts	/^    [PAGE_PROGRESS]: TheProgress,$/;"	C
+PAGE_PROGRESS	./src/router.ts	/^  [PAGE_PROGRESS]: TheProgress,$/;"	C
 PAGE_TIMELINE	./src/constants.ts	/^export const PAGE_TIMELINE = 'timeline'$/;"	C
 PERIOD_SELECT_OPTIONS	./src/constants.ts	/^export const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions()$/;"	C
+PagesType	./src/router.ts	/^type PagesType = typeof TheTimeline | typeof TheProgress | typeof TheActivities$/;"	a
+RoutesType	./src/router.ts	/^type RoutesType = {$/;"	a
 SECONDS_IN_DAY	./src/constants.ts	/^export const SECONDS_IN_DAY = HOURS_IN_DAY * SECONDS_IN_HOUR$/;"	C
 SECONDS_IN_HOUR	./src/constants.ts	/^export const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * MINUTES_IN_HOUR$/;"	C
 SECONDS_IN_MINUTE	./src/constants.ts	/^export const SECONDS_IN_MINUTE = 60$/;"	C
 SelectOptionsType	./src/validators.ts	/^export type SelectOptionsType = {$/;"	a
 StateType	./src/storage.ts	/^export type StateType = {$/;"	a
-TimelineItemType	./src/timeline-item-timer.ts	/^import { type TimelineItemType } from '.\/validators'$/;"	a
+TimelineItemType	./src/timeline-item-timer.ts	/^import { type TimelineItemType } from '@\/validators'$/;"	a
 TimelineItemType	./src/validators.ts	/^export type TimelineItemType = {$/;"	a
 activeTimelineItem	./src/timeline-items.ts	/^export const activeTimelineItem = computed(() =>$/;"	C
 activities	./src/activities.ts	/^export const activities = ref<ActivityType[]>([])$/;"	C
@@ -141,20 +145,19 @@ const	./src/components/ProgressItem.vue	/^const { colorClass, percentage, tracke
 const	./src/components/TheHeaderProgress.vue	/^const { colorClass, percentage } = useTotalProgress()$/;"	p
 const	./src/constants.ts	/^export const BUTTON_TYPE_PRIMARY = 'primary'$/;"	C
 const	./src/constants.ts	/^export const MILLISECONDS_IN_SECOND = 1000$/;"	C
-const	./src/router.ts	/^export const currentPage = ref(normalizePageHash())$/;"	C
+const	./src/router.ts	/^export const currentPage = ref<string>(normalizePageHash())$/;"	C
 createActivity	./src/activities.ts	/^export function createActivity(activity: ActivityType) {$/;"	f
-currentPage	./src/router.ts	/^export const currentPage = ref(normalizePageHash())$/;"	C
+currentPage	./src/router.ts	/^export const currentPage = ref<string>(normalizePageHash())$/;"	C
 date	./src/functions.ts	/^    const date = new Date()$/;"	C	function:generatePeriodSelectOptions
 deleteActivity	./src/activities.ts	/^export function deleteActivity(activity: ActivityType) {$/;"	f
-deleteAndResetActivity	./src/components/ActivityItem.vue	/^function deleteAndResetActivity(activity) {$/;"	f
-document	./src/timeline-items.ts	/^  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el$/;"	C	function:scrollToHour
-el	./src/timeline-items.ts	/^  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el$/;"	C	function:scrollToHour
+deleteAndResetActivity	./src/components/ActivityItem.vue	/^function deleteAndResetActivity(activity: ActivityType) {$/;"	f
+el	./src/timeline-items.ts	/^    const el: HTMLElement =$/;"	C	function:scrollToHour
 endOfHour	./src/time.ts	/^  const endOfHour = new Date(date)$/;"	C	function:endOfHour
 endOfHour	./src/time.ts	/^export function endOfHour(date: Date) {$/;"	f
 export	./src/constants.ts	/^export const BUTTON_TYPE_PRIMARY = 'primary'$/;"	C
 export	./src/constants.ts	/^export const MILLISECONDS_IN_SECOND = 1000$/;"	C
 export	./src/functions.ts	/^export function formatSecondsWithSign(seconds: number) {$/;"	C	function:generatePeriodSelectOptions
-export	./src/router.ts	/^export const currentPage = ref(normalizePageHash())$/;"	C
+export	./src/router.ts	/^export const currentPage = ref<string>(normalizePageHash())$/;"	C
 filterTimelineItemsByActivity	./src/timeline-items.ts	/^function filterTimelineItemsByActivity(timelineItems: TimelineItemType[], { id }: ActivityType) /;"	f
 formatSecondsWithSign	./src/functions.ts	/^export function formatSecondsWithSign(seconds: number) {$/;"	C	function:generatePeriodSelectOptions
 generatePeriodSelectOptions	./src/functions.ts	/^export function generatePeriodSelectOptions() {$/;"	f
@@ -163,7 +166,6 @@ generateTimeLineItems	./src/timeline-items.ts	/^function generateTimeLineItems()
 getTimelineHight	./src/components/TheTimelineIndicator.vue	/^function getTimelineHight() {$/;"	f
 handleClick	./src/components/NavItem.vue	/^function handleClick() {$/;"	f
 handleClick	./src/components/TheLogo.vue	/^function handleClick() {$/;"	f
-hour	./src/timeline-items.ts	/^  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el$/;"	C	function:scrollToHour
 hours	./src/functions.ts	/^    const hours = Math.floor(periodsInMinutes \/ MINUTES_IN_HOUR)$/;"	C	function:generatePeriodSelectOptionsLabel
 icon	./src/constants.ts	/^    { page: PAGE_ACTIVITIES, icon: ICON_LIST_BULLET },$/;"	C
 icon	./src/constants.ts	/^    { page: PAGE_PROGRESS, icon: ICON_CHART_BAR },$/;"	C
@@ -173,7 +175,7 @@ import	./src/App.vue	/^import { routes, currentPage } from '@\/router'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { BUTTON_TYPE_DANGER, PERIOD_SELECT_OPTIONS } from '@\/constants'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { ICON_TRASH } from '@\/icons'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { deleteActivity, updateActivity } from '@\/activities'$/;"	p
-import	./src/components/ActivityItem.vue	/^import { isActivityValid } from '@\/validators'$/;"	p
+import	./src/components/ActivityItem.vue	/^import { isActivityValid, type ActivityType } from '@\/validators'$/;"	p
 import	./src/components/ActivityItem.vue	/^import { timelineItems, resetTimelineItemActivities } from '@\/timeline-items'$/;"	p
 import	./src/components/BaseButton.vue	/^import { isButtonTypeValid } from '@\/validators'$/;"	p
 import	./src/components/BaseButton.vue	/^import {$/;"	p
@@ -198,7 +200,6 @@ import	./src/components/RemainingActivitySeconds.vue	/^import { formatSecondsWit
 import	./src/components/RemainingActivitySeconds.vue	/^import { isActivityValid } from '@\/validators'$/;"	p
 import	./src/components/RemainingActivitySeconds.vue	/^import { timelineItems, calculateTrackedActivitySeconds } from '@\/timeline-items'$/;"	p
 import	./src/components/TheActivityForm.vue	/^import { ICON_PLUS } from '@\/icons'$/;"	p
-import	./src/components/TheActivityForm.vue	/^import { SECONDS_IN_HOUR } from '@\/constants'$/;"	p
 import	./src/components/TheActivityForm.vue	/^import { createActivity } from '@\/activities'$/;"	p
 import	./src/components/TheActivityForm.vue	/^import { id } from '@\/functions'$/;"	p
 import	./src/components/TheActivityForm.vue	/^import { ref, nextTick } from 'vue'$/;"	p
@@ -229,7 +230,6 @@ import	./src/components/TimelineStopwatch.vue	/^import { now } from '@\/time'$/;
 import	./src/components/TimelineStopwatch.vue	/^import { type PropType } from 'vue'$/;"	p
 import	./src/components/TimelineStopwatch.vue	/^import {$/;"	p
 import	./src/pages/TheActivities.vue	/^import { activities } from '@\/activities'$/;"	p
-import	./src/pages/TheActivities.vue	/^import { isActivityValid, isNumber } from '@\/validators'$/;"	p
 import	./src/pages/TheProgress.vue	/^import { trackedActivities } from '@\/activities'$/;"	p
 import	./src/pages/TheTimeline.vue	/^import { onActivated } from 'vue'$/;"	p
 import	./src/pages/TheTimeline.vue	/^import { timelineItems, scrollToCurrentHour, timelineItemRefs } from '@\/timeline-items'$/;"	p
@@ -251,7 +251,7 @@ isTimelineItemValid	./src/validators.ts	/^export function isTimelineItemValid({ 
 isToday	./src/time.ts	/^export function isToday(date: Date) {$/;"	f
 isUndefined	./src/validators.ts	/^function isUndefined(value: number | undefined) {$/;"	f
 isUndefinedOrNull	./src/validators.ts	/^export function isUndefinedOrNull(value: number) {$/;"	f
-lastActiveAt	./src/timeline-items.ts	/^  const lastActiveAt = new Date(state.lastActiveAt)$/;"	C	function:initializeTimelineItems
+lastActiveAt	./src/timeline-items.ts	/^    const lastActiveAt = new Date(state.lastActiveAt)$/;"	C	function:initializeTimelineItems
 loadFromLocalStorage	./src/storage.ts	/^function loadFromLocalStorage() {$/;"	f
 loadState	./src/storage.ts	/^function loadState() {$/;"	f
 midnight	./src/time.ts	/^const midnight = computed(() => new Date(now.value).setHours(0, 0, 0, 0))$/;"	C
@@ -264,7 +264,7 @@ ns5d2975b30101	./src/assets/img/no_tracked_activities.svg	/^<svg xmlns="http:\/\
 nse201f1b60101	./src/assets/img/no_activities.svg	/^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" data-name="Layer 1" width="647.63626" height="632.17/;"	n	uri:http://www.w3.org/2000/svg
 page	./src/constants.ts	/^    { page: PAGE_ACTIVITIES, icon: ICON_LIST_BULLET },$/;"	C
 page	./src/constants.ts	/^    { page: PAGE_PROGRESS, icon: ICON_CHART_BAR },$/;"	C
-page	./src/router.ts	/^    const page = window.location.hash.slice(1)$/;"	C	function:normalizePageHash
+page	./src/router.ts	/^  const page = window.location.hash.slice(1)$/;"	C	function:normalizePageHash
 percentage	./src/composables/progress.ts	/^    const percentage = computed(() =>$/;"	C	function:useProgress
 percentage	./src/composables/total-progress.ts	/^    const percentage = computed(() => calculateCompletionPercentage(totalTrackedSeconds.value))$/;"	C	function:useTotalProgress
 periodsInMinutes	./src/functions.ts	/^    const periodsInMinutes = [$/;"	C	function:generatePeriodSelectOptions
@@ -279,12 +279,11 @@ resetTimelineItemActivities	./src/timeline-items.ts	/^export function resetTimel
 resetTimelineItemTimer	./src/timeline-item-timer.ts	/^export function resetTimelineItemTimer(timelineItem: TimelineItemType) {$/;"	f
 resetTimelineItems	./src/timeline-items.ts	/^function resetTimelineItems() {$/;"	f
 return	./src/functions.ts	/^    return periodsInMinutes.map((periodsInMinutes) => ({$/;"	C	function:generatePeriodSelectOptions
-routes	./src/router.ts	/^export const routes = {$/;"	C
+routes	./src/router.ts	/^export const routes: RoutesType = {$/;"	C
 saveState	./src/storage.ts	/^function saveState() {$/;"	f
 scrollToCurrentHour	./src/timeline-items.ts	/^export function scrollToCurrentHour(isSmooth: boolean = false) {$/;"	f
 scrollToHour	./src/timeline-items.ts	/^export function scrollToHour(hour: number, isSmooth: boolean = true) {$/;"	f
 select	./src/components/BaseSelect.vue	/^function select(value) {$/;"	f
-setSecondsToComplete	./src/pages/TheActivities.vue	/^function setSecondsToComplete(activity: ActivityType, secondsToComplete: number) {$/;"	f
 startCurrentDateTimer	./src/time.ts	/^export function startCurrentDateTimer() {$/;"	f
 startTimelineItemTimer	./src/timeline-item-timer.ts	/^export function startTimelineItemTimer(timelineItem?: TimelineItemType) {$/;"	f
 state	./src/storage.ts	/^  const state = loadFromLocalStorage()$/;"	C	function:loadState
@@ -321,21 +320,21 @@ tomorrow	./src/time.ts	/^export function tomorrow() {$/;"	f
 totalActivitySecondsToComplete	./src/activities.ts	/^const totalActivitySecondsToComplete = computed(() => {$/;"	C
 totalTrackedSeconds	./src/composables/total-progress.ts	/^    const totalTrackedSeconds = computed(() => {$/;"	C	function:useTotalProgress
 trackedActivities	./src/activities.ts	/^export const trackedActivities = computed(() =>$/;"	C
-updateActivity	./src/activities.ts	/^export function updateActivity(activity: ActivityType, fields: { secondsToComplete: number }) {$/;"	f
+updateActivity	./src/activities.ts	/^export function updateActivity(activity: ActivityType, fields: FieldsType) {$/;"	f
 updateTimelineItem	./src/timeline-items.ts	/^export function updateTimelineItem(timelineItem: TimelineItemType, fields: FieldsType) {$/;"	f
 useProgress	./src/composables/progress.ts	/^export function useProgress(activity: ActivityType) {$/;"	f
 useTotalProgress	./src/composables/total-progress.ts	/^export function useTotalProgress() {$/;"	f
 utc	./src/functions.ts	/^    const utc = date.toUTCString()$/;"	C	function:generatePeriodSelectOptions
 v-for="activity in activities"	./src/pages/TheActivities.vue	/^                v-for="activity in activities"$/;"	c	template:<template>
-v-for="activity in trackedActivities"	./src/pages/TheProgress.vue	/^                v-for="activity in trackedActivities"$/;"	c	template:<template>
+v-for="activity in trackedActivities"	./src/pages/TheProgress.vue	/^            v-for="activity in trackedActivities"$/;"	c	template:<template>
 v-for="navItem in NAV_ITEMS"	./src/components/TheNav.vue	/^                v-for="navItem in NAV_ITEMS"$/;"	c	template:<template>
 v-for="timelineItem in timelineItems"	./src/pages/TheTimeline.vue	/^      <TimelineItem v-for="timelineItem in timelineItems" :key="timelineItem.hour" :timeline-ite/;"	c	template:<template>
 v-for="{ value, label } in options"	./src/components/BaseSelect.vue	/^                v-for="{ value, label } in options"$/;"	c	template:<template>
 v-if="activities?.length > 0"	./src/pages/TheActivities.vue	/^            v-if="activities?.length > 0"$/;"	c	template:<template>
-v-if="activity.secondsToComplete"	./src/components/ActivityItem.vue	/^                v-if="activity.secondsToComplete"$/;"	c	template:<template>
+v-if="activity?.secondsToComplete"	./src/components/ActivityItem.vue	/^                v-if="activity?.secondsToComplete"$/;"	c	template:<template>
 v-if="percentage < HUNDRED_PERCENT"	./src/components/TheHeaderProgress.vue	/^            v-if="percentage < HUNDRED_PERCENT"$/;"	c	template:<template>
 v-if="timelineItem === activeTimelineItem"	./src/components/TimelineStopwatch.vue	/^            v-if="timelineItem === activeTimelineItem"$/;"	c	template:<template>
-v-if="trackedActivities.length > 0"	./src/pages/TheProgress.vue	/^            v-if="trackedActivities.length > 0"$/;"	c	template:<template>
+v-if="trackedActivities.length > 0"	./src/pages/TheProgress.vue	/^        v-if="trackedActivities.length > 0"$/;"	c	template:<template>
 validateSelectOptions	./src/validators.ts	/^export function validateSelectOptions(options: SelectOptionsType[]) {$/;"	f
 xlink	./src/assets/img/no_activities.svg	/^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" data-name="Layer 1" width="647.63626" height="632.17/;"	n	uri:http://www.w3.org/1999/xlink
 xlink	./src/assets/img/no_tracked_activities.svg	/^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" data-name="Layer 1" width="700.74679" height="597.77/;"	n	uri:http://www.w3.org/1999/xlink

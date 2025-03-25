@@ -55,11 +55,11 @@ const props = defineProps({
 })
 
 const isNotSelected = computed(() => {
+    debugger
     return isUndefinedOrNull(props.selected)
 })
 
-function select(value) {
-    // debugger
+function select(value: number | string | null) {
     emit('select', normalizeSelectValue(value))
 }
 </script>

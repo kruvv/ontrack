@@ -2,7 +2,7 @@ import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES, type NavItemType 
 import { ICONS } from '@/icons'
 
 export type SelectOptionsType = {
-    value: number | string
+    value: number | string | null
     label: string
 }
 
@@ -16,7 +16,7 @@ export type TimelineItemType = {
 export type ActivityType = {
     id: string
     name: string
-    secondsToComplete: number | null
+    secondsToComplete: number
 }
 
 export function isPageValid(page: string): boolean {
@@ -57,16 +57,16 @@ export function validateSelectOptions(options: SelectOptionsType[]) {
 function isSelectOptionValid({ value, label }: SelectOptionsType) {
     if (typeof value === 'number') {
         return isNumber(value) && isNotEmptyString(label)
-    } else {
+    } else if (typeof value === 'string') {
         return isNotEmptyString(value) && isNotEmptyString(label)
     }
 }
 
-export function isNull(value: number | null) {
+export function isNull(value: number | string | null) {
     return value === null
 }
 
-export function isUndefinedOrNull(value: number) {
+export function isUndefinedOrNull(value: number | string | undefined | null) {
     return isUndefined(value) || isNull(value)
 }
 
@@ -74,7 +74,7 @@ function isNumberOrNull(value: number | null) {
     return typeof value === 'number' ? isNumber(value) : isNull(value)
 }
 
-function isUndefined(value: number | undefined) {
+function isUndefined(value: number | string | undefined | null) {
     return value === undefined
 }
 

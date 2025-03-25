@@ -22,7 +22,22 @@ export const ICON_X_MARK = 'XMark'
 export const ICON_PLUS = 'Plus'
 export const ICON_CHECK_CIRCLE = 'CheckCircle'
 
-export const ICONS = {
+type IconType =
+    | typeof Clock
+    | typeof ListBullet
+    | typeof ChartBar
+    | typeof Trash
+    | typeof ArrowPath
+    | typeof Pause
+    | typeof Play
+    | typeof XMark
+    | typeof Plus
+    | typeof CheckCircle
+
+type Icons = {
+    [key: string]: IconType
+}
+export const ICONS: Icons = {
     [ICON_CLOCK]: Clock,
     [ICON_LIST_BULLET]: ListBullet,
     [ICON_CHART_BAR]: ChartBar,

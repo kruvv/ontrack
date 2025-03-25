@@ -6,16 +6,10 @@ import {
     MEDIUM_PERCENT,
     HUNDRED_PERCENT,
 } from '@/constants'
-import type { ActivityType, TimelineItemType } from '@/validators'
 import { isNull } from '@/validators'
 
 export function normalizeSelectValue(value: number | string | null) {
-    //TODO:  Странная логика валидации
-    // if (value === null || typeof value === 'number') return value
-    // return   typeof value === 'string' && isNaN(value) ? value : +value
-    // debugger
-    // FIXME: это надо починить
-    return isNull(value) || isNaN(value) ? value : +value
+    return isNull(value) || isNaN(Number(value)) ? value : +value
 }
 
 // Генерация случайного id

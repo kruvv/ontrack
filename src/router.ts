@@ -5,13 +5,18 @@ import TheActivities from '@/pages/TheActivities.vue'
 import TheProgress from '@/pages/TheProgress.vue'
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from '@/constants'
 
-export const routes = {
+type PagesType = typeof TheTimeline | typeof TheProgress | typeof TheActivities
+type RoutesType = {
+  [key: string]: PagesType
+}
+
+export const routes: RoutesType = {
   [PAGE_TIMELINE]: TheTimeline,
   [PAGE_ACTIVITIES]: TheActivities,
   [PAGE_PROGRESS]: TheProgress,
 }
 
-export const currentPage = ref(normalizePageHash())
+export const currentPage = ref<string>(normalizePageHash())
 
 export function navigate(page: string) {
   document.body.scrollIntoView()
