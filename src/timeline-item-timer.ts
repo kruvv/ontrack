@@ -7,15 +7,17 @@ const timelineItemTimer = ref<boolean | number>(false)
 
 export function startTimelineItemTimer(timelineItem?: TimelineItemType) {
     timelineItem = timelineItem ?? activeTimelineItem.value
-    updateTimelineItem(timelineItem, {
-        isActive: true,
-    })
-
-    timelineItemTimer.value = setInterval(() => {
+    if (timelineItem) {
         updateTimelineItem(timelineItem, {
-            activitySeconds: timelineItem?.activitySeconds + 1,
+            isActive: true,
         })
-    }, MILLISECONDS_IN_SECOND)
+
+        timelineItemTimer.value = setInterval(() => {
+            updateTimelineItem(timelineItem, {
+                activitySeconds: timelineItem?.activitySeconds + 1,
+            })
+        }, MILLISECONDS_IN_SECOND)
+    }
 }
 
 export function stopTimelineItemTimer() {

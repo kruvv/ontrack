@@ -2,13 +2,13 @@ import { NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES, type NavItemType 
 import { ICONS } from '@/icons'
 
 export type SelectOptionsType = {
-    value: number | string | null
+    value: number | string
     label: string
 }
 
 export type TimelineItemType = {
     hour: number
-    activityId: string | null
+    activityId: string
     activitySeconds: number
     isActive: boolean
 }

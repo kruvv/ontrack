@@ -73,8 +73,9 @@ export function scrollToCurrentHour(isSmooth: boolean = false) {
 export function scrollToHour(hour: number, isSmooth: boolean = true) {
     // опция для выбора плавной или обычной прокрутки прокрутки
     // debugger
+    // eslint-disable-next-line
     const el: HTMLElement =
-        hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el
+        hour === MIDNIGHT_HOUR ? document.body : (timelineItemRefs.value[hour - 1] as any).$el
     el.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'instant' })
 }
 

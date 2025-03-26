@@ -12,7 +12,7 @@
         <div class="flex gap-2">
             <BaseSelect
                 class="font-mono grow"
-                :selected="activity?.secondsToComplete || null"
+                :selected="activity?.secondsToComplete || undefined"
                 placeholder="hh:mm"
                 :options="PERIOD_SELECT_OPTIONS"
                 @select="

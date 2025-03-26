@@ -1,7 +1,7 @@
 <template>
     <a
         :href="`#${PAGE_TIMELINE}`"
-        @click="handleClick(PAGE_TIMELINE)"
+        @click="handleClick"
     >
         <img
             src="@/assets/img/logo.png"
